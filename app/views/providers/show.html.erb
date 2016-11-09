@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rut:</strong>
+  <%= @provider.rut %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @provider.nombre %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @provider.direccion %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @provider.numero %>
+</p>
+
+<p>
+  <strong>Ciudad:</strong>
+  <%= @provider.ciudad %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @provider.email %>
+</p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @provider.telefono %>
+</p>
+
+<%= link_to 'Edit', edit_provider_path(@provider) %> |
+<%= link_to 'Back', providers_path %>

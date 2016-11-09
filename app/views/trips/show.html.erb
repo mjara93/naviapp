@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Salida:</strong>
+  <%= @trip.salida %>
+</p>
+
+<p>
+  <strong>Real:</strong>
+  <%= @trip.real %>
+</p>
+
+<p>
+  <strong>Estimada:</strong>
+  <%= @trip.estimada %>
+</p>
+
+<p>
+  <strong>Motivo:</strong>
+  <%= @trip.motivo %>
+</p>
+
+<p>
+  <strong>Ship:</strong>
+  <%= @trip.ship %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @trip.purchase %>
+</p>
+
+<%= link_to 'Edit', edit_trip_path(@trip) %> |
+<%= link_to 'Back', trips_path %>

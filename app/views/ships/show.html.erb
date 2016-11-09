@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @ship.nombre %>
+</p>
+
+<p>
+  <strong>Patente:</strong>
+  <%= @ship.patente %>
+</p>
+
+<p>
+  <strong>Metros:</strong>
+  <%= @ship.metros %>
+</p>
+
+<%= link_to 'Edit', edit_ship_path(@ship) %> |
+<%= link_to 'Back', ships_path %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Crews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apaterno</th>
+      <th>Amaterno</th>
+      <th>Email</th>
+      <th>Rut</th>
+      <th>Celular</th>
+      <th>Direccion</th>
+      <th>City</th>
+      <th>Position</th>
+      <th>Ship</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crews.each do |crew| %>
+      <tr>
+        <td><%= crew.nombre %></td>
+        <td><%= crew.apaterno %></td>
+        <td><%= crew.amaterno %></td>
+        <td><%= crew.email %></td>
+        <td><%= crew.rut %></td>
+        <td><%= crew.celular %></td>
+        <td><%= crew.direccion %></td>
+        <td><%= crew.city %></td>
+        <td><%= crew.position %></td>
+        <td><%= crew.ship %></td>
+        <td><%= link_to 'Show', crew %></td>
+        <td><%= link_to 'Edit', edit_crew_path(crew) %></td>
+        <td><%= link_to 'Destroy', crew, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crew', new_crew_path %>

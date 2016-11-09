@@ -1,0 +1,57 @@
+<%= form_for(@crew) do |f| %>
+  <% if @crew.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+
+      <ul>
+      <% @crew.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :apaterno %><br>
+    <%= f.text_field :apaterno %>
+  </div>
+  <div class="field">
+    <%= f.label :amaterno %><br>
+    <%= f.text_field :amaterno %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :rut %><br>
+    <%= f.text_field :rut %>
+  </div>
+  <div class="field">
+    <%= f.label :celular %><br>
+    <%= f.number_field :celular %>
+  </div>
+  <div class="field">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion %>
+  </div>
+  <div class="field">
+    <%= f.label :city_id %><br>
+    <%= f.text_field :city_id %>
+  </div>
+  <div class="field">
+    <%= f.label :position_id %><br>
+    <%= f.text_field :position_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ship_id %><br>
+    <%= f.text_field :ship_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
