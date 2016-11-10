@@ -1,6 +1,6 @@
 class ShipsController < ApplicationController
   before_action :set_ship, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /ships
   # GET /ships.json
   def index

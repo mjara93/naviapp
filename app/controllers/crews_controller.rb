@@ -1,6 +1,6 @@
 class CrewsController < ApplicationController
   before_action :set_crew, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /crews
   # GET /crews.json
   def index
