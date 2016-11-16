@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Reportes</strong>
+                    
+                </h3>
+                
+            </div>
+            <!-- error message -->
+            <% if params[:notice] != nil %>
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= params[:notice] %>
+            </div>
+            <% end %>
+            <!-- end error message -->
+            <div class="panel-body">
+                
+                Seleccionar Mes
+                <form action="reporte/mensual" method="get">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+                  <input class="form-control datepicker" type="text" required="required" name="field1" id="itinerario_FechaSalida" />
+                </div>
+                </br>
+                <input class="btn btn-primary" type="submit" value="Ingresar">
+                </form>
+
+                <script type="text/javascript">
+                  
+                  $('.datepicker').datepicker({
+                      format: "mm-yyyy",
+                      viewMode: "months", 
+                      minViewMode: "months",
+                        
+                  });
+                </script>
+                <div style="padding-top: 20px">
+                
+                Seleccionar por rango de meses
+                <form action="reporte/anual" method="get">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"> Desde</span>
+                  </span>
+                  <input class="form-control datepicker2" type="text" required="required" name="inicio" id="itinerario_FechaSalida" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"> Hasta</span>
+                  </span>
+
+                  <input class="form-control datepicker3" type="text" required="required" name="fin" id="itinerario_FechaSalida" />
+                </div>
+                
+                </br>
+                <input class="btn btn-primary" type="submit" value="Ingresar">
+                </form>
+                </div>
+                <script type="text/javascript">
+                  $('.datepicker2').datepicker({
+                      format: "mm-yyyy",
+                      viewMode: "months", 
+                      minViewMode: "months"
+                  });
+                </script>
+                <script type="text/javascript">
+                  $('.datepicker3').datepicker({
+                      format: "mm-yyyy",
+                      viewMode: "months", 
+                      minViewMode: "months"
+                  });
+                </script>
+               
+      
+
+  </div>
+  <br />
+</div>
+

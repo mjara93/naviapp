@@ -29,6 +29,13 @@ end
   resources :main
   resources :calculos
 
+  get "reporte" => "calculos#index"
+  get "reporte/mensual" => "calculos#ejemplo"
+  get "reporte/pdf" => "calculos#pdf"
+  get "calculos/show"
+  get "reporte/anual" => "calculos#reporteY"
+  get "reporte/pdf_anual" => "calculos#reporteY_pdf"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

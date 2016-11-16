@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Reporte de <%= render :text => @fecha_inicio+" a "+@fecha_fin %></strong>
+                </h3>
+                <ul class="panel-controls-btn">
+                <form action="pdf_anual.pdf" method="get">
+                <input type="hidden" value="<%= @fecha_inicio %>" name="inicio">
+                <input type="hidden" value="<%= @fecha_fin %>" name="fin">
+                <li><input type="submit" class="btn btn-default" value="Generar PDF"></li>
+                </form>
+                    
+                </ul>
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <h3>Resumen</h3>
+                    
+                    <table class="table">
+                        <thead>
+                          <th align="center" >Producto</th>
+                          <th align="center" >Valor invertido Total</th>
+                          <th align="center" >Cantidad Total</th>
+                          <th align="center" >Inversion</th>
+                          <th align="center" >Ganacia</th>
+                        </thead>
+
+                        <tbody>
+                          <% 
+                          entro = 0
+                          @boats.each do |boat| 
+                            @ventas.each do |venta|
+                              
+                              if(boat.nombre == venta.nombre)
+                                entro = entro + 1
+                                if(boat.nombre != '')
+                                %>
+
+                            <tr>
+                              <td align="center" class="mdl-data-table__cell--non-numeric"><%= boat.nombre %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.inversion, delimiter: ".") %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.cantidad %> Kg</td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.precio, delimiter: ".") %></td>
+                              <td>$<%= number_with_delimiter(venta.valor.to_i, delimiter: ".") %></td>
+                            </tr>
+                          <%  end
+                            end
+
+                               %>
+
+                           <% end
+                              if(entro == 0)
+                               if(boat.nombre != '') %>
+                                <tr>
+                              <td align="center" class="mdl-data-table__cell--non-numeric"><%= boat.nombre %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.inversion, delimiter: ".") %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.cantidad %> Kg</td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.precio.to_i, delimiter: ".") %></td>
+                              <td>$<%= number_with_delimiter(0, delimiter: ".") %></td>
+                            </tr>
+                             <% end
+                           end
+                          end %>
+                            <tr>
+                              <td align="center" >TOTAL</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+
+                            </tr>
+                        </tbody>
+                  </table>
+
+                  </br>
+                  
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Meses</th>
+                        <th>Gastos</th>
+                        <th>Ganacia</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                        mes_i = @mes_inicio - 1
+                        agno_i = @agno_inicio
+                        count_m = @count_meses + mes_i
+                        i = 0
+                        while(mes_i <= count_m) %>
+                          <tr>
+                            <% if mes_i < 12 %>
+                              <td><%= @meses_agno[mes_i]+" "+agno_i.to_s %></td>
+                            <% end %>
+                            <% if mes_i >= 12 %>
+                              <td><%= @meses_agno[mes_i].to_s+" "+(agno_i.to_i+1).to_s %></td>
+                            <% end %>
+                            <td><%= number_to_currency(@gastos[mes_i].to_s, delimiter: ".", precision: 0) %></td>
+                            <td><%= number_to_currency(@ganancia[mes_i].to_s, delimiter: ".", precision: 0)%></td>
+                            <% 
+                            aux = @ganancia[mes_i].to_i - @gastos[mes_i].to_i
+                            if(aux < 0) %>
+                              <td><font color="red"><%= number_to_currency((@ganancia[mes_i] - @gastos[mes_i]).to_s, delimiter: ".", precision: 0) %></font></td>
+                            <% end
+                            if(aux >= 0) %>
+                              <td><font color="blue"><%= number_to_currency((@ganancia[mes_i].to_i - @gastos[mes_i].to_i).to_s, delimiter: ".", precision: 0) %></font></td>
+                            <% end %>
+                          </tr>
+                        <%  mes_i = mes_i+1 
+                        end %>
+                    </tbody>
+                  </table>
+                </div>
+                
+                </div>
+                <div class="row">
+            <div class="col-md-4">
+              <h2 align="center">Gráfico de Producto mas comprado (torta):</h2><br />
+              <% if(@entro_md1 == true) %>
+                
+                <%= pie_chart(@model1) %>
+              <% else %>
+                <%= pie_chart @xd %>
+              <% end %>
+
+            </div>
+            <div class="col-md-4">
+              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
+              <% if(@entro_md2 == true) %>
+                <%= column_chart(@model2) %>
+              <% else %>
+              
+                <%= pie_chart @xd2 %>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
+              <!--<%= column_chart @model3 %>-->
+            </div>
+            </div>
+
+                </div>
+
+</div>
+

@@ -1,0 +1,51 @@
+
+<div >
+  <div >
+    <h3>Calculo</h3>
+
+
+  </div>
+  <br />
+  <div >
+    <table class="mdl-data-table mdl-js-data-table ">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Nombre Producto</th>
+          <th>Inversion Productos</th>
+          <th>Inversion Itinerario</th>
+          <th>Suma de Inversiones</th>
+          <th>Total Vendido</th>
+          <th>Ganancia</th>
+
+        </tr>
+      </thead>
+
+    <tbody>
+      <% @boats.each do |boat| %>
+        <tr>
+          <td class="mdl-data-table__cell--non-numeric"><%= boat.nombre %></td>
+          <td class="mdl-data-table__cell--numeric"><%= boat.inversion %></td>
+          <td class="mdl-data-table__cell--numeric"><%= boat.valor_invertido %></td>
+          <td class="mdl-data-table__cell--numeric"><%= boat.inversion+boat.valor_invertido %></td>
+          <% @sales.each do |sales| %>
+            <% if sales.nombre == boat.nombre %>
+              <td class="mdl-data-table__cell--numeric"><%= sales.valor %></td>
+              <td class="mdl-data-table__cell--numeric"><%= (sales.valor) - (boat.inversion+boat.valor_invertido) %></td>
+            
+            <% end %>
+
+          <% end %>
+          <% if(@num == {}) %>
+            <td class="mdl-data-table__cell--numeric">0</td>
+            <td class="mdl-data-table__cell--numeric">0</td>
+          <% end %>  
+          
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+
+  </div>
+  <br />
+</div>
+

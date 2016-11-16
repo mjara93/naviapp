@@ -1,0 +1,179 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Reporte de <%= render :text => @mes_salida + " " + @agno %></strong>
+                </h3>
+                <ul class="panel-controls-btn">
+                <form action="pdf.pdf" method="get">
+                <input type="hidden" value="<%= @fecha %>" name="field1">
+                <li><input type="submit" class="btn btn-default" value="Generar PDF"></li>
+                </form>
+                    
+                </ul>
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <h3>Costos de Inversión </h3>
+                    
+                    <table class="table">
+                        <thead>
+                          <th align="center" >Nombre Producto</th>
+                          <th align="center" >Proveedor</th>
+                          <th align="center" >Fecha</th>
+                          <th align="center" >Cantidad</th>
+                          <th align="center" >Valor invertido</th>
+                          <th align="center" >Nombre de embarcación</th>
+                          <th align="center" >Costos de Transporte</th>
+                        </thead>
+
+                        <tbody>
+                          <% 
+                          aux_valor_invertido = 0
+                          aux_costos_x = 0
+                          @boats.each do |boat| %>
+                            <tr>
+                              <%
+                                inversion = boat.precio * boat.cantidad
+                               %>
+                              <td align="center" class="mdl-data-table__cell--non-numeric"><%= boat.nombre_producto %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.nombre_proveedor %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.fechasalida %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.cantidad %> Kg</td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(inversion.to_i.to_s, delimiter: ".") %></td>
+                              <%
+                                aux_valor_invertido = (aux_valor_invertido + inversion.to_i)
+                              %>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.nombre_embarcacion %></td>
+                              <%
+                                costos_x = boat.alimentacion + boat.combustible + boat.personal + boat.emergencia
+                                aux_costos_x = (aux_costos_x + costos_x)
+                              %>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(costos_x, delimiter: ".") %></td>
+                              <%
+                                costos_x = 0
+                              %>      
+                            </tr>
+                          <% end %>
+                            <tr>
+                              <td align="center" >TOTAL</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td align="center" >$<%= number_with_delimiter(aux_valor_invertido, delimiter: ".") %></td>
+                              <td></td>
+                              <td align="center" >$<%= number_with_delimiter(aux_costos_x, delimiter: ".") %></td>
+                            </tr>
+                        </tbody>
+                  </table>
+
+                  </br></br>
+                  <h3>Ganancia de Venta de Productos </h3>
+                  <table class="table">
+                    <thead>
+                          <th>Nombre Producto</th>
+                          <th>Cliente</th>
+                          <th>Fecha</th>
+                          <th>Valor Venta</th>
+                          <th>Cantidad</th>
+                          <th>Venta Total</th>
+                        </thead>
+                        <tbody>
+                          <% 
+                          aux_total = 0
+                          @ventas.each do |venta| %>
+                            <tr>
+                              <td class="mdl-data-table__cell--non-numeric"><%= venta.nombre %></td>
+                              <td><%= venta.cliente_nombre %> </td>
+                              <td><%= venta.fecha %></td>
+                              <td class="mdl-data-table__cell--non-numeric">$<%= number_with_delimiter(venta.valor_venta, delimiter: ".") %></td>
+                              <td class="mdl-data-table__cell--non-numeric"><%= venta.cantidad %> Kg</td>
+                              <%
+                                total = venta.valor_venta * venta.cantidad
+                                aux_total = aux_total + total
+                              %>
+                              <td class="mdl-data-table__cell--non-numeric">$<%= number_with_delimiter(total, delimiter: ".") %></td>     
+                            </tr>
+                          <% end %>
+                            <tr>
+                              <td>TOTAL</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>$<%= number_with_delimiter(aux_total, delimiter: ".") %></td>
+                            </tr>
+                        </tbody>
+                  </table>
+                  </br></br>
+                  <h3>Resumen</h3>
+                  <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Costos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>Inversión</td>
+                    <td align="right">$<%= number_with_delimiter(aux_valor_invertido, delimiter: ".") %></td>
+                    </tr>
+                    <tr>
+                    <td>Transporte</td>
+                    <td align="right">$<%= number_with_delimiter(aux_costos_x, delimiter: ".") %></td>
+                    </tr>
+                    <tr>
+                    <%
+                      total = aux_valor_invertido + aux_costos_x
+                      num1 = number_with_delimiter(total, delimiter: ".")
+                    %>
+                      <td>TOTAL</td>
+                      <td align="right">$<%= num1 %></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Ganancia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>Venta Productos</td>
+                    <td align="right">$<%= number_with_delimiter(aux_total, delimiter: ".") %></td>
+                    </tr>
+                    
+                    </tbody>
+                  </table>
+                  <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Ganancia Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>Ganacias - Costos</td>
+                    <td align="right"><%= number_to_currency(aux_total- (aux_valor_invertido + aux_costos_x), delimiter: ".", precision: 0) %></td>
+                    </tr>
+                    
+                    </tbody>
+                  </table>
+                </div>
+                <br />
+</div>
+

@@ -1,0 +1,251 @@
+<%= javascript_include_tag "https://www.google.com/jsapi" %>
+<%= wicked_pdf_javascript_include_tag "chartkick" %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style type="text/css">
+          table a:link {
+  color: #666;
+  font-weight: bold;
+  text-decoration:none;
+}
+table a:visited {
+  color: #999999;
+  font-weight:bold;
+  text-decoration:none;
+}
+table a:active,
+table a:hover {
+  color: #bd5a35;
+  text-decoration:underline;
+}
+table {
+  font-family:Arial, Helvetica, sans-serif;
+  color:#666;
+  font-size:12px;
+  text-shadow: 1px 1px 0px #fff;
+  background:#eaebec;
+  margin:20px;
+  border:#ccc 1px solid;
+
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+
+  -moz-box-shadow: 0 1px 2px #d1d1d1;
+  -webkit-box-shadow: 0 1px 2px #d1d1d1;
+  box-shadow: 0 1px 2px #d1d1d1;
+}
+table th {
+  padding:21px 25px 22px 25px;
+  border-top:1px solid #fafafa;
+  border-bottom:1px solid #e0e0e0;
+
+  background: #ededed;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+  background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+table th:first-child {
+  text-align: left;
+  padding-left:20px;
+}
+table tr:first-child th:first-child {
+  -moz-border-radius-topleft:3px;
+  -webkit-border-top-left-radius:3px;
+  border-top-left-radius:3px;
+}
+table tr:first-child th:last-child {
+  -moz-border-radius-topright:3px;
+  -webkit-border-top-right-radius:3px;
+  border-top-right-radius:3px;
+}
+table tr {
+  text-align: center;
+  padding-left:20px;
+}
+table td:first-child {
+  text-align: left;
+  padding-left:20px;
+  border-left: 0;
+}
+table td {
+  padding:18px;
+  border-top: 1px solid #ffffff;
+  border-bottom:1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+
+  background: #fafafa;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+  background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+table tr.even td {
+  background: #f6f6f6;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+  background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+table tr:last-child td {
+  border-bottom:0;
+}
+table tr:last-child td:first-child {
+  -moz-border-radius-bottomleft:3px;
+  -webkit-border-bottom-left-radius:3px;
+  border-bottom-left-radius:3px;
+}
+table tr:last-child td:last-child {
+  -moz-border-radius-bottomright:3px;
+  -webkit-border-bottom-right-radius:3px;
+  border-bottom-right-radius:3px;
+}
+table tr:hover td {
+  background: #f2f2f2;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+  background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);  
+}
+          .page-break {
+  display: block;
+  clear: both;
+  page-break-after: always;
+}
+        </style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Reporte de <%= render :text => @fecha_inicio+" a "+@fecha_fin %></strong>
+                </h3>
+              
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <h3>Resumen</h3>
+                    
+                    <table class="table" width="95%">
+                        <thead>
+                          <th align="center" >Producto</th>
+                          <th align="center" >Valor invertido Total</th>
+                          <th align="center" >Cantidad Total</th>
+                          <th align="center" >Inversion</th>
+                          <th align="center" >Ganacia</th>
+                        </thead>
+
+                        <tbody>
+                          <% 
+                          entro = 0
+                          @boats.each do |boat| 
+                            @ventas.each do |venta|
+                              if(boat.nombre == venta.nombre)
+                                entro = entro + 1
+                                %>
+
+                            <tr>
+                              <td align="center" class="mdl-data-table__cell--non-numeric"><%= boat.nombre %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.inversion, delimiter: ".") %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.cantidad %> Kg</td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.precio, delimiter: ".") %></td>
+                              <td>$<%= number_with_delimiter(venta.valor, delimiter: ".") %></td>
+                            </tr>
+                          <%  end
+
+                               %>
+
+                           <% end
+                              if(entro == 0) %>
+                                <tr>
+                              <td align="center" class="mdl-data-table__cell--non-numeric"><%= boat.nombre %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.inversion, delimiter: ".") %></td>
+                              <td align="center" class="mdl-data-table__cell--numeric"><%= boat.cantidad %> Kg</td>
+                              <td align="center" class="mdl-data-table__cell--numeric">$<%= number_with_delimiter(boat.precio, delimiter: ".") %></td>
+                              <td>$<%= number_with_delimiter(0, delimiter: ".") %></td>
+                            </tr>
+                             <% end
+                          end %>
+                            <tr>
+                              <td align="center" >TOTAL</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+
+                            </tr>
+                        </tbody>
+                  </table>
+
+                  </br>
+                  <h3>Detalle por meses</h3>
+                  <table class="table" width="95%">
+                    <thead>
+                      <tr>
+                        <th>Meses</th>
+                        <th>Gastos</th>
+                        <th>Ganacia</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                        mes_i = @mes_inicio - 1
+                        agno_i = @agno_inicio
+                        count_m = @count_meses + mes_i
+                        i = 0
+                        while(mes_i <= count_m) %>
+                          <tr>
+                            <% if mes_i < 12 %>
+                              <td><%= @meses_agno[mes_i]+" "+agno_i.to_s %></td>
+                            <% end %>
+                            <% if mes_i >= 12 %>
+                              <td><%= @meses_agno[mes_i].to_s+" "+(agno_i.to_i+1).to_s %></td>
+                            <% end %>
+                            <td><%= number_to_currency(@gastos[mes_i].to_s, delimiter: ".", precision: 0) %></td>
+                            <td><%= number_to_currency(@ganancia[mes_i].to_s, delimiter: ".", precision: 0)%></td>
+                            <% 
+                            aux = @ganancia[mes_i].to_i - @gastos[mes_i].to_i
+                            if(aux < 0) %>
+                              <td><font color="red"><%= number_to_currency((@ganancia[mes_i] - @gastos[mes_i]).to_s, delimiter: ".", precision: 0) %></font></td>
+                            <% end
+                            if(aux >= 0) %>
+                              <td><font color="blue"><%= number_to_currency((@ganancia[mes_i].to_i - @gastos[mes_i].to_i).to_s, delimiter: ".", precision: 0) %></font></td>
+                            <% end %>
+                          </tr>
+                        <%  mes_i = mes_i+1 
+                        end %>
+                    </tbody>
+                  </table>
+                </div>
+                
+                </div>
+                <div class="row">
+            <div class="col-md-4">
+              <h2 align="center">Gráfico de Producto mas comprado (torta):</h2><br />
+              <% if(@entro_md1 == true) %>
+                <%= pie_chart @model1 %>
+              <% else %>
+                <%= pie_chart @xd %>
+              <% end %>
+
+            </div>
+            <div class="col-md-4">
+              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
+              <% if(@entro_md2 == true) %>
+                <%= column_chart @model2 %>
+              <% else %>
+                <%= pie_chart @xd2 %>
+              <% end %>
+            </div>
+            
+            </div>
+                </div>
+                
+</div>
+
