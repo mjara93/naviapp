@@ -1,9 +1,57 @@
-<p id="notice"><%= notice %></p>
+<!-- error message -->
+<% if notice != nil %>
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <%= notice %>
+</div>
+<% end %>
+<!-- end error message -->
+<!-- body -->
+<%= form_for(@position) do |position| %>
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                <strong>Nombre:</strong>
+                <%= @position.nombre %>
+              </p>
+            </div>
+            <div class="panel-footer">
+                <%= link_to 'Editar', edit_position_path(@position), class:"btn btn-default pull-left" %>
+                <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-danger">Eliminar</button>
+                <%= link_to 'Volver', positions_path, class:"btn btn-default pull-left" %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end body -->
+<!-- footer -->
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @position.nombre %>
-</p>
-
-<%= link_to 'Edit', edit_position_path(@position) %> |
-<%= link_to 'Back', positions_path %>
+<!-- end foooter -->
+<!-- danger -->
+<div class="message-box message-box-danger animated fadeIn" id="message-box-danger">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title">
+                <span class="fa fa-times"></span>
+                Peligro</div>
+            <div class="mb-content">
+                <p>¿Esta seguro de continuar con la eliminacion del registro?</p>
+            </div>
+            <div class="mb-footer">
+                <%= link_to 'Eliminar', @position, method: :delete, class:"btn btn-default btn-lg pull-right"%>
+                <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end danger -->
+<% end %>

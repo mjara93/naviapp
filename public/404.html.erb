@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- META SECTION -->
+        <title>naviapp</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <%= stylesheet_link_tag    'application'%>
+        <%= javascript_include_tag 'application'%>
+        <%= stylesheet_link_tag params[:controller] %>
+        <%= javascript_include_tag params[:controller] %>
+        <%= csrf_meta_tags %>
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <div class="error-text">Pagina no encontrada</div>
+            <div class="error-subtext">Desafortunadamente, estamos teniendo problemas para cargar la página que estás buscando. Espere un momento y vuelva a intentarlo o utilice la acción a continuación.</div>
+            <div class="error-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-info btn-block btn-lg" onClick="document.location.href = '/main';">Back to dashboard</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block btn-lg" onClick="history.back();">Previous page</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

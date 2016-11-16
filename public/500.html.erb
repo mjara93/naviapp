@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- META SECTION -->
+        <title>Naviapp</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <%= stylesheet_link_tag    'application'%>
+        <%= javascript_include_tag 'application'%>
+        <%= stylesheet_link_tag params[:controller] %>
+        <%= javascript_include_tag params[:controller] %>
+        <%= csrf_meta_tags %>
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+        <div class="error-container">
+            <div class="error-code">500</div>
+            <div class="error-text">Error interno del servidor</div>
+            <div class="error-subtext">El servidor encontró un error interno o una configuración incorrecta y no pudo completar su solicitud.</div>
+        </div>
+    </body>
+</html>

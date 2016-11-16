@@ -1,6 +1,21 @@
-<h1>Editing City</h1>
+<!-- form format top -->
+<div class="row">
+    <div class="col-md-12">
 
-<%= render 'form' %>
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>Editar ciudad</strong>
+                    </h3>
+                </div>
+                <!-- end form format top -->
+                <%= render 'form' %>
 
-<%= link_to 'Show', @city %> |
-<%= link_to 'Back', cities_path %>
+                <%= link_to 'Ver', @city, class:"btn btn-default pull-center"%>
+                <%= link_to 'Volver', cities_path, class:"btn btn-default pull-left"  %>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
