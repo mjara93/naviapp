@@ -1,39 +1,53 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+    <div class="col-md-12">
 
-<h1>Listing Clients</h1>
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Clientes</strong>
+                </h3>
+                <ul class="panel-controls-btn">
+                    <li><%= link_to 'Nuevo', new_client_path, class:"btn btn-default" %></li>
+                </ul>
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Rut</th>
-      <th>Nombre</th>
-      <th>Telefono</th>
-      <th>Direccion</th>
-      <th>Numero</th>
-      <th>Ciudad</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                              <th>Rut</th>
+                              <th>Nombre</th>
+                              <th>Ciudad</th>
+                              <th>Email</th>
+                            </tr>
+                        </thead>
 
-  <tbody>
-    <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.rut %></td>
-        <td><%= client.nombre %></td>
-        <td><%= client.telefono %></td>
-        <td><%= client.direccion %></td>
-        <td><%= client.numero %></td>
-        <td><%= client.ciudad %></td>
-        <td><%= client.email %></td>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Client', new_client_path %>
+                        <tbody>
+                          <% @clients.each do |client| %>
+                            <tr>
+                              <td><%= link_to client.rut, client %></td>
+                              <td><%= client.nombre %></td>
+                              <td><%= client.city.nombre %></td>
+                              <td><%= client.email %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

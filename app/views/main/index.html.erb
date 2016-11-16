@@ -1,2 +1,104 @@
-<h1>Main#index</h1>
-<p>Find me in app/views/main/index.html.erb</p>
+<div class="row">
+    <div class="col-md-3">
+
+        <!-- START WIDGET REGISTRED -->
+        <div class="widget widget-default widget-item-icon" onclick="location.href='/crews';">
+            <div class="widget-item-left">
+                <span class="fa fa-user"></span>
+            </div>
+            <div class="widget-data">
+                <div class="widget-int num-count"><%= @personas %></div>
+                <div class="widget-title">tripulantes registrados</div>
+                <div class="widget-subtitle"></div>
+            </div>
+        </div>
+        <!-- END WIDGET REGISTRED -->
+    </div>
+
+    <div class="col-md-3">
+
+        <!-- START WIDGET SLIDER -->
+        <div class="widget widget-default widget-carousel">
+            <div class="owl-carousel" id="owl-example">
+                <div>
+                    <div class="widget-title">Total compras</div>
+                    <div class="widget-subtitle"><%= @time %></div>
+                    <div class="widget-int"><%= @compras %></div>
+                </div>
+                <div>
+                    <div class="widget-title">Total ventas</div>
+                    <div class="widget-subtitle"><%= @time %></div>
+                    <div class="widget-int"><%= @ventas %></div>
+                </div>
+                <div>
+                    <div class="widget-title">Total embarcaciones</div>
+                    <div class="widget-int"><%= @barcos %></div>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET SLIDER  -->
+
+    </div>
+
+    <div class="col-md-3">
+
+        <!-- START WIDGET SLIDER -->
+        <div class="widget widget-default widget-carousel" onclick="location.href='/trips';">
+            <div class="owl-carousel" id="owl-example">
+                <div>
+                    <div class="widget-title">Total viajes</div>
+                    <div class="widget-subtitle">pendientes</div>
+                    <div class="widget-int"><%= @itinerario %></div>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET SLIDER  -->
+
+    </div>
+    <div class="col-md-3">
+
+        <!-- START WIDGET CLOCK -->
+        <div class="widget widget-danger widget-padding-sm">
+            <div class="widget-big-int plugin-clock">00:00</div>
+            <div class="widget-subtitle plugin-date">Cargando...</div>
+            <div class="widget-buttons widget-c3">
+                <div class="col">
+                    <a href="#">
+                        <span ></span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <span class="fa fa-calendar"></span>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <span ></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET CLOCK -->
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- START BAR CHART -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Productos</strong>
+                    calculado en kg.</h3>
+
+            </div>
+            <div class="panel-body">
+                <%= column_chart Product.group(:nombre).sum(:stock), label: "kilos" %>
+            </div>
+        </div>
+        <!-- END BAR CHART -->
+
+    </div>
+</div>

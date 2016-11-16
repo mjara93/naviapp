@@ -1,6 +1,21 @@
-<h1>Editing Client</h1>
+<!-- form format top -->
+<div class="row">
+    <div class="col-md-12">
 
-<%= render 'form' %>
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>Editar clientes</strong>
+                    </h3>
+                </div>
+                <!-- end form format top -->
+                <%= render 'form' %>
 
-<%= link_to 'Show', @client %> |
-<%= link_to 'Back', clients_path %>
+                <%= link_to 'Ver', @client, class:"btn btn-default pull-center" %>
+                <%= link_to 'Volver', clients_path, class:"btn btn-default pull-left" %>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

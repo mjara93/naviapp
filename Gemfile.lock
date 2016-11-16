@@ -139,6 +139,8 @@ GEM
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    validates_email_format_of (1.6.3)
+      i18n
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -146,6 +148,8 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    wicked_pdf (1.1.0)
+    wkhtmltopdf-binary (0.12.3)
 
 PLATFORMS
   ruby
@@ -165,7 +169,10 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   unicorn
+  validates_email_format_of
   web-console (~> 2.0)
+  wicked_pdf
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 2.3.0p0

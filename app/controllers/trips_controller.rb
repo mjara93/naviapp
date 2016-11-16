@@ -10,11 +10,13 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
+    @compra = Purchase.where(id: @trip.purchase)
   end
 
   # GET /trips/new
   def new
     @trip = Trip.new
+    @trip.costs.build
   end
 
   # GET /trips/1/edit
@@ -28,7 +30,7 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       if @trip.save
-        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
+        format.html { redirect_to @trip, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new }
@@ -41,8 +43,8 @@ class TripsController < ApplicationController
   # PATCH/PUT /trips/1.json
   def update
     respond_to do |format|
-      if @trip.update(trip_params)
-        format.html { redirect_to @trip, notice: 'Trip was successfully updated.' }
+      if @trip.update_attributes(trip_params)
+        format.html { redirect_to @trip, notice: 'Registro actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @trip }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class TripsController < ApplicationController
   def destroy
     @trip.destroy
     respond_to do |format|
-      format.html { redirect_to trips_url, notice: 'Trip was successfully destroyed.' }
+      format.html { redirect_to trips_url, notice: 'Registro eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params.require(:trip).permit(:salida, :real, :estimada, :motivo, :ship_id, :purchase_id)
+      params.require(:trip).permit(:salida, :real, :estimada, :motivo, :ship_id, :purchase_id, costs_attributes: [:id, :alimentacion, :combustible, :personal, :emergencia])
     end
 end

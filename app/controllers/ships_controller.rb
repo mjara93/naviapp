@@ -10,6 +10,7 @@ class ShipsController < ApplicationController
   # GET /ships/1
   # GET /ships/1.json
   def show
+    @find = Crew.where(ship_id: @ship.id)
   end
 
   # GET /ships/new
@@ -28,7 +29,7 @@ class ShipsController < ApplicationController
 
     respond_to do |format|
       if @ship.save
-        format.html { redirect_to @ship, notice: 'Ship was successfully created.' }
+        format.html { redirect_to @ship, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @ship }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class ShipsController < ApplicationController
   def update
     respond_to do |format|
       if @ship.update(ship_params)
-        format.html { redirect_to @ship, notice: 'Ship was successfully updated.' }
+        format.html { redirect_to @ship, notice: 'Registro actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @ship }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class ShipsController < ApplicationController
   def destroy
     @ship.destroy
     respond_to do |format|
-      format.html { redirect_to ships_url, notice: 'Ship was successfully destroyed.' }
+      format.html { redirect_to ships_url, notice: 'Registro eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end

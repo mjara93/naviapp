@@ -15,6 +15,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+    #@sale.details.build
   end
 
   # GET /sales/1/edit
@@ -28,7 +29,7 @@ class SalesController < ApplicationController
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
+        format.html { redirect_to @sale, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @sale }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class SalesController < ApplicationController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
+        format.html { redirect_to @sale, notice: 'Registro actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @sale }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class SalesController < ApplicationController
   def destroy
     @sale.destroy
     respond_to do |format|
-      format.html { redirect_to sales_url, notice: 'Sale was successfully destroyed.' }
+      format.html { redirect_to sales_url, notice: 'Registro eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:factura, :fecha, :total, :client_id)
+      params.require(:sale).permit(:factura, :fecha, :total, :client_id, details_attributes: [:id, :product_id, :cantidad, :precio, :subtotal, :_destroy])
     end
 end

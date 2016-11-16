@@ -1,57 +1,177 @@
+<!-- error message -->
 <%= form_for(@crew) do |f| %>
-  <% if @crew.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+<% if @crew.errors.any? %>
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>!Error!</strong>
+    No se pudo guardar en la base de datos.
+</div>
+<% @crew.errors.full_messages.each do |message| %>
+<div class="alert alert-warning" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>¡Advertencia!</strong>
+    <%= message %>
+</div>
 
-      <ul>
-      <% @crew.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :apaterno %><br>
-    <%= f.text_field :apaterno %>
-  </div>
-  <div class="field">
-    <%= f.label :amaterno %><br>
-    <%= f.text_field :amaterno %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :rut %><br>
-    <%= f.text_field :rut %>
-  </div>
-  <div class="field">
-    <%= f.label :celular %><br>
-    <%= f.number_field :celular %>
-  </div>
-  <div class="field">
-    <%= f.label :direccion %><br>
-    <%= f.text_field :direccion %>
-  </div>
-  <div class="field">
-    <%= f.label :city_id %><br>
-    <%= f.text_field :city_id %>
-  </div>
-  <div class="field">
-    <%= f.label :position_id %><br>
-    <%= f.text_field :position_id %>
-  </div>
-  <div class="field">
-    <%= f.label :ship_id %><br>
-    <%= f.text_field :ship_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+
+<% end %>
+<!-- end error message -->
+
+<!-- form format body -->
+<div class="panel-body">
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <%= f.label :nombre, class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :nombre, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Nombre del tripulante</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label "apellido paterno", class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :apaterno, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Apellido paterno del tripulante</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label "apellido materno", class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :amaterno, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Apellido materno del tripulante</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :email, class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :email, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Email con el formato ejemplo@dominio.com</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :rut, class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :rut, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Rut separado con puntos y guion</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <%= f.label :celular, class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.number_field :celular, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Numero celular comenzando en 9</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :direccion, class:"col-md-3 control-label"%>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-pencil"></span>
+                        </span>
+                        <%= f.text_field :direccion, class:"form-control"%>
+                    </div>
+                    <span class="help-block">Direccion del tripulante con numero</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Ciudad</label>
+                <div class="col-md-9">
+                    <%= collection_select :crew, :city_id, City.all, :id, :nombre, {prompt: true}, {class: "form-control select", "data-live-search" => "true"} %>
+                    <span class="help-block">Ciudad del tripulante</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Cargo</label>
+                <div class="col-md-9">
+                    <%= collection_select :crew, :position_id, Position.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+                    <span class="help-block">Cargo del tripulante</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Embarcacion</label>
+                <div class="col-md-9">
+                    <%= collection_select :crew, :ship_id, Ship.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+                    <span class="help-block">Embarcacion en la cual trabaja el tripulante</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div >
+
+        <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-info">Confirmar</button>
+
+        <!-- form format body -->
+
+        <!-- info meddage -->
+        <div class="message-box message-box-info animated fadeIn" id="message-box-info">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title">
+                        <span class="fa fa-info"></span>
+                        Informacion</div>
+                    <div class="mb-content">
+                        <p>¿Estas seguro de continuar?</p>
+                    </div>
+                    <div class="mb-footer">
+                        <%= f.submit class:"btn btn-default btn-lg pull-right "%>
+                        <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end info message -->
+        <% end %>

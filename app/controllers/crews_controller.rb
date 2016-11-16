@@ -28,7 +28,7 @@ class CrewsController < ApplicationController
 
     respond_to do |format|
       if @crew.save
-        format.html { redirect_to @crew, notice: 'Crew was successfully created.' }
+        format.html { redirect_to @crew, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @crew }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CrewsController < ApplicationController
   def update
     respond_to do |format|
       if @crew.update(crew_params)
-        format.html { redirect_to @crew, notice: 'Crew was successfully updated.' }
+        format.html { redirect_to @crew, notice: 'Registro actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @crew }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CrewsController < ApplicationController
   def destroy
     @crew.destroy
     respond_to do |format|
-      format.html { redirect_to crews_url, notice: 'Crew was successfully destroyed.' }
+      format.html { redirect_to crews_url, notice: 'Registro eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end

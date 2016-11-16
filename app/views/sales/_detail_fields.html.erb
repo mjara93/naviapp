@@ -1,0 +1,24 @@
+<div class="nested-fields">
+<div class="form-inline" >
+  <div class="form-group">
+      <label class="sr-only">Producto</label>
+      <%= f.collection_select :product_id, Product.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+  </div>
+  <div class="form-group">
+          <label class="sr-only">Cantidad</label>
+          <%= f.number_field :cantidad, class:"form-control", placeholder:"Cantidad", step:"0.5"%>
+  </div>
+  <div class="form-group">
+          <label class="sr-only">Precio</label>
+          <%= f.number_field :precio, class:"form-control", placeholder:"Precio"%>
+  </div>
+  <div class="form-group">
+          <label class="sr-only">Subtotal</label>
+          <%= f.number_field :subtotal, class:"form-control", placeholder:"Subtotal"%>
+  </div>
+  <div class="form-group">
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_association "eliminar", f, class:"btn btn-danger" %>
+  </div>
+</div>
+</div>

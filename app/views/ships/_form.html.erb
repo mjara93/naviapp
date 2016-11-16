@@ -1,29 +1,90 @@
+<!-- error message -->
 <%= form_for(@ship) do |f| %>
-  <% if @ship.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ship.errors.count, "error") %> prohibited this ship from being saved:</h2>
-
-      <ul>
-      <% @ship.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :patente %><br>
-    <%= f.text_field :patente %>
-  </div>
-  <div class="field">
-    <%= f.label :metros %><br>
-    <%= f.number_field :metros %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% if @ship.errors.any? %>
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>!Error!</strong>
+    No se pudo guardar en la base de datos.
+</div>
+<% @ship.errors.full_messages.each do |message| %>
+<div class="alert alert-warning" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>¡Advertencia!</strong>
+    <%= message %>
+</div>
 <% end %>
+<% end %>
+<!-- end error message -->
+
+<!-- form format body -->
+<div class="panel-body">
+    <div class="form-group">
+        <%= f.label :nombre , class:"col-md-3 col-xs-12 control-label"%>
+
+        <div class="col-md-5 col-xs-12">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.text_field :nombre, class:"form-control"%>
+            </div>
+            <span class="help-block">Nombre de embarcacion</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= f.label :patente , class:"col-md-3 col-xs-12 control-label"%>
+
+        <div class="col-md-5 col-xs-12">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.text_field :patente, class:"form-control"%>
+            </div>
+            <span class="help-block">Patente de la embarcacion</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= f.label :metros , class:"col-md-3 col-xs-12 control-label"%>
+
+        <div class="col-md-5 col-xs-12">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.number_field :metros, class:"form-control"%>
+            </div>
+            <span class="help-block">Distancia registrada de Proa a Popa</span>
+        </div>
+    </div>
+    <div >
+
+        <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-info">Confirmar</button>
+
+        <!-- form format body -->
+
+        <!-- info meddage -->
+        <div class="message-box message-box-info animated fadeIn" id="message-box-info">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title">
+                        <span class="fa fa-info"></span>
+                        Informacion</div>
+                    <div class="mb-content">
+                        <p>¿Estas seguro de continuar?</p>
+                    </div>
+                    <div class="mb-footer">
+                        <%= f.submit class:"btn btn-default btn-lg pull-right "%>
+                        <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end info message -->
+        <% end %>

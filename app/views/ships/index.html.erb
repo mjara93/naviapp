@@ -1,31 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+    <div class="col-md-12">
 
-<h1>Listing Ships</h1>
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Embarcaciones</strong>
+                </h3>
+                <ul class="panel-controls-btn">
+                    <li><%= link_to 'Nuevo', new_ship_path, class:"btn btn-default" %></li>
+                </ul>
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Patente</th>
+                                <th>Metros</th>
+                            </tr>
+                        </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Patente</th>
-      <th>Metros</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ships.each do |ship| %>
-      <tr>
-        <td><%= ship.nombre %></td>
-        <td><%= ship.patente %></td>
-        <td><%= ship.metros %></td>
-        <td><%= link_to 'Show', ship %></td>
-        <td><%= link_to 'Edit', edit_ship_path(ship) %></td>
-        <td><%= link_to 'Destroy', ship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Ship', new_ship_path %>
+                        <tbody>
+                            <% @ships.each do |embarcacion| %>
+                            <tr>
+                                <td><%= link_to embarcacion.nombre, embarcacion %></td>
+                                <td><%= embarcacion.patente %></td>
+                                <td><%= embarcacion.metros %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,39 +1,108 @@
-<p id="notice"><%= notice %></p>
+<!-- error message -->
+<% if notice != nil %>
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <%= notice %>
+</div>
+<% end %>
+<!-- end error message -->
+<!-- body -->
 
-<p>
-  <strong>Rut:</strong>
-  <%= @provider.rut %>
-</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                <strong>Rut:</strong>
+                <%= @provider.rut %>
+              </p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @provider.nombre %>
-</p>
+              <p>
+                <strong>Nombre:</strong>
+                <%= @provider.nombre %>
+              </p>
 
-<p>
-  <strong>Direccion:</strong>
-  <%= @provider.direccion %>
-</p>
+              <p>
+                <strong>Direccion:</strong>
+                <%= @provider.direccion %>
+              </p>
 
-<p>
-  <strong>Numero:</strong>
-  <%= @provider.numero %>
-</p>
+              <p>
+                <strong>Numero:</strong>
+                <%= @provider.numero %>
+              </p>
 
-<p>
-  <strong>Ciudad:</strong>
-  <%= @provider.ciudad %>
-</p>
+              <p>
+                <strong>Ciudad:</strong>
+                <%= @provider.city.nombre %>
+              </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @provider.email %>
-</p>
+              <p>
+                <strong>Email:</strong>
+                <%= @provider.email %>
+              </p>
 
-<p>
-  <strong>Telefono:</strong>
-  <%= @provider.telefono %>
-</p>
+              <p>
+                <strong>Telefono:</strong>
+                <%= @provider.telefono %>
+              </p>
+            </div>
+            <%= form_for(@provider) do |provider| %>
+            <div class="panel-footer">
+                <%= link_to 'Editar', edit_provider_path(@provider), class:"btn btn-default pull-left" %>
+                <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-danger">Eliminar</button>
+                <%= link_to 'Volver', providers_path, class:"btn btn-default pull-left" %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+      <div class="table-responsive">
+          <table class="table datatable">
+              <thead>
+                  <tr>
+                      <th>Factura</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
+                  </tr>
+              </thead>
 
-<%= link_to 'Edit', edit_provider_path(@provider) %> |
-<%= link_to 'Back', providers_path %>
+              <tbody>
+                  <% @provider.purchases.each do |find| %>
+                  <tr>
+                      <td><%= find.factura %></td>
+                      <td><%= find.total %></td>
+                      <td><%= find.fecha %></td>
+                  </tr>
+                  <% end %>
+              </tbody>
+          </table>
+      </div>
+
+    </div>
+</div>
+<!-- end body -->
+<!-- danger -->
+<div class="message-box message-box-danger animated fadeIn" id="message-box-danger">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title">
+                <span class="fa fa-times"></span>
+                Peligro</div>
+            <div class="mb-content">
+                <p>¿Esta seguro de continuar con la eliminacion del registro?</p>
+            </div>
+            <div class="mb-footer">
+                <%= link_to 'Eliminar', @provider, method: :delete, class:"btn btn-default btn-lg pull-right"%>
+                <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% end %>

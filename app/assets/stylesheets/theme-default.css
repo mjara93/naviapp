@@ -401,7 +401,7 @@
     font-size: 14px;
   }
   .form-material .form-inline .form-group {
-    margin-top: 16px;
+    margin-top: 30px;
   }
   .form-material .input-group-btn,
   .form-material .input-group .form-control,
@@ -414,7 +414,7 @@
   }
   .form-material .form-inline .radio label,
   .form-material .form-inline .checkbox label {
-    padding-left: 5px;
+    padding-left: 30px;
   }
 }
 /* FUNCTIONS */

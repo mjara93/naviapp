@@ -1,33 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+    <div class="col-md-12">
 
-<h1>Listing Sales</h1>
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Ventas</strong>
+                </h3>
+                <ul class="panel-controls-btn">
+                    <li><%= link_to 'Nuevo', new_sale_path , class:"btn btn-default" %></li>
+                </ul>
+            </div>
+            <!-- error message -->
+            <% if notice != nil %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <%= notice %>
+            </div>
+            <% end %>
+            <!-- end error message -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Factura</th>
-      <th>Fecha</th>
-      <th>Total</th>
-      <th>Client</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                              <th>Factura</th>
+                              <th>Cliente</th>
+                              <th>Fecha</th>
+                              <th>Total</th>
+                        </thead>
 
-  <tbody>
-    <% @sales.each do |sale| %>
-      <tr>
-        <td><%= sale.factura %></td>
-        <td><%= sale.fecha %></td>
-        <td><%= sale.total %></td>
-        <td><%= sale.client %></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Sale', new_sale_path %>
+                        <tbody>
+                            <% @sales.each do |sale| %>
+                            <tr>
+                                <td><%= link_to sale.factura, sale %></td>
+                                <% if sale.client !=nil %>
+                                <td><%= sale.client.nombre %></td>
+                                <% else %>
+                                <td>Eliminado</td>
+                                <% end %>
+                                <td><%= sale.fecha %></td>
+                                <td><%= sale.total %></td>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

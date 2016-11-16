@@ -1,34 +1,144 @@
-<p id="notice"><%= notice %></p>
+<!-- error message -->
+<% if notice != nil %>
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <%= notice %>
+</div>
+<% end %>
+<!-- end error message -->
+<!-- body -->
+<%= form_for(@trip) do |trip| %>
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <strong>Fecha salida:</strong>
+                    <%= @trip.salida %>
+                </p>
+                    <% if @trip.real != nil %>
+                <p>
+                    <strong>Llegada real:</strong>
+                    <%= @trip.real %>
+                </p>
+                    <% else %>
+                <p>
+                    <strong>Llegada real:</strong>
+                    Aun en ruta
+                </p>
+                <% end %>
+                <p>
+                    <strong>Llegada estimada:</strong>
+                    <%= @trip.estimada %>
+                </p>
 
-<p>
-  <strong>Salida:</strong>
-  <%= @trip.salida %>
-</p>
+                <p>
+                    <strong>Motivo:</strong>
+                    <%= @trip.motivo %>
+                </p>
 
-<p>
-  <strong>Real:</strong>
-  <%= @trip.real %>
-</p>
+                <p>
+                    <strong>Embarcacion:</strong>
+                    <%= @trip.ship.nombre %>
+                </p>
 
-<p>
-  <strong>Estimada:</strong>
-  <%= @trip.estimada %>
-</p>
+                <p>
+                    <strong>Compra:</strong>
+                    <%= @trip.purchase.factura %>
+                </p>
+            </div>
+            <div class="panel-footer">
+                <%= link_to 'Editar', edit_trip_path(@trip), class:"btn btn-default pull-left" %>
+                <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-danger">Eliminar</button>
+                <%= link_to 'Volver', trips_path, class:"btn btn-default pull-left" %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Costos</h3>
+            </div>
+            <div class="panel-body">
+                <% @trip.costs.each do |costo| %>
+                <p>
+                    <strong>Alimentacion:</strong>
+                    <%= costo.alimentacion %>
+                </p>
 
-<p>
-  <strong>Motivo:</strong>
-  <%= @trip.motivo %>
-</p>
+                <p>
+                    <strong>Combustible:</strong>
+                    <%= costo.combustible %>
+                </p>
 
-<p>
-  <strong>Ship:</strong>
-  <%= @trip.ship %>
-</p>
+                <p>
+                    <strong>Personal:</strong>
+                    <%= costo.personal %>
+                </p>
 
-<p>
-  <strong>Purchase:</strong>
-  <%= @trip.purchase %>
-</p>
+                <p>
+                    <strong>Emergencia:</strong>
+                    <%= costo.emergencia %>
+                </p>
 
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
-<%= link_to 'Back', trips_path %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Compra detalle</h3>
+            </div>
+            <div class="panel-body">
+                <% @compra.each do |compra| %>
+                <p>
+                    <strong>Factura:</strong>
+                    <%= compra.factura %>
+                </p>
+
+                <p>
+                    <strong>Fecha:</strong>
+                    <%= compra.fecha %>
+                </p>
+
+                <p>
+                    <strong>Total:</strong>
+                    <%= compra.total %>
+                </p>
+
+                <p>
+                    <strong>Proveedor:</strong>
+                    <%= compra.provider.nombre %>
+                </p>
+
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end body -->
+<!-- danger -->
+<div class="message-box message-box-danger animated fadeIn" id="message-box-danger">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title">
+                <span class="fa fa-times"></span>
+                Peligro</div>
+            <div class="mb-content">
+                <p>¿Esta seguro de continuar con la eliminacion del registro?</p>
+            </div>
+            <div class="mb-footer">
+                <%= link_to 'Eliminar', @trip, method: :delete, class:"btn btn-default btn-lg pull-right"%>
+                <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>

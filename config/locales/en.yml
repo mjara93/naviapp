@@ -25,3 +25,22 @@ en:
       submit:
         create: "crear %{model}"
         update: "Actualizar %{model}"
+  activerecord:
+    models:
+      account: "cuenta"
+      city: "ciudad"
+      client: "cliente"
+      cost: "costo"
+      crew: "tripulante"
+      detail: "detalle"
+      location: "localizacion"
+      position: "cargo"
+      product: "producto"
+      provider: "proveedor"
+      purchase: "compra"
+      sale: "venta"
+      ship: "embarcacion"
+      trip: "viaje"
+      user: "usuario"
+  errors:
+    format: "%{attribute} %{message}"

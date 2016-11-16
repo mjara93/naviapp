@@ -15,6 +15,7 @@ class PurchasesController < ApplicationController
   # GET /purchases/new
   def new
     @purchase = Purchase.new
+    #@purchase.summaries.build
   end
 
   # GET /purchases/1/edit
@@ -28,7 +29,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
+        format.html { redirect_to @purchase, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class PurchasesController < ApplicationController
   def update
     respond_to do |format|
       if @purchase.update(purchase_params)
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully updated.' }
+        format.html { redirect_to @purchase, notice: 'Registro actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @purchase }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class PurchasesController < ApplicationController
   def destroy
     @purchase.destroy
     respond_to do |format|
-      format.html { redirect_to purchases_url, notice: 'Purchase was successfully destroyed.' }
+      format.html { redirect_to purchases_url, notice: 'Registro eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class PurchasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_params
-      params.require(:purchase).permit(:fecha, :factura, :total, :provider_id)
+      params.require(:purchase).permit(:fecha, :factura, :total, :provider_id, summaries_attributes: [:id, :product_id, :cantidad, :precio, :subtotal, :_destroy])
     end
 end

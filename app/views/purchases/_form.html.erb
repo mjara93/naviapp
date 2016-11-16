@@ -1,33 +1,117 @@
+<!-- error message -->
 <%= form_for(@purchase) do |f| %>
-  <% if @purchase.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+<% if @purchase.errors.any? %>
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>!Error!</strong>
+    No se pudo guardar en la base de datos.
+</div>
+<% @purchase.errors.full_messages.each do |message| %>
+<div class="alert alert-warning" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>¡Advertencia!</strong>
+    <%= message %>
+</div>
 
-      <ul>
-      <% @purchase.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<% end %>
+
+<% end %>
+<!-- end error message -->
+
+<!-- form format body -->
+<div class="panel-body">
+  <div class="col-md-6">
+
+    <div class="form-group">
+        <%= f.label "Nº Factura", class:"col-md-3 control-label"%>
+        <div class="col-md-9">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.number_field :factura, class:"form-control"%>
+            </div>
+        <span class="help-block">Numero de factura</span>
+        </div>
     </div>
-  <% end %>
+    <div class="form-group">
+        <%= f.label "Fecha", class:"col-md-3 control-label"%>
+        <div class="col-md-9">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.text_field :fecha, class:"form-control datepicker"%>
+            </div>
+            <span class="help-block">Fecha de la compra.</span>
+        </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :fecha %><br>
-    <%= f.date_select :fecha %>
   </div>
-  <div class="field">
-    <%= f.label :factura %><br>
-    <%= f.number_field :factura %>
-  </div>
-  <div class="field">
-    <%= f.label :total %><br>
-    <%= f.number_field :total %>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id %><br>
-    <%= f.text_field :provider_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+        <%= f.label "Total", class:"col-md-3 col-xs-12 control-label"%>
+        <div class="col-md-9">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= f.number_field :total, class:"form-control"%>
+            </div>
+            <span class="help-block">Total de la compra.</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label "Proveedor", class:"col-md-3 control-label"%>
+        <div class="col-md-9">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-pencil"></span>
+                </span>
+                <%= collection_select :purchase, :provider_id, Provider.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+            </div>
+            <span class="help-block">Nombre del proveedor</span>
+        </div>
+    </div>
+
+    </div>
+<div>
+  <h3>Agregar detalle</h3>
+    <%= f.fields_for :summaries do |builder| %>
+      <%= render "summary_fields", f: builder  %>
+    <% end %>
+<p><%= link_to_add_association "Añadir detalle", f, :summaries %></p>
+</div>
+  <div >
+
+        <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-info">Confirmar</button>
+
+        <!-- form format body -->
+
+        <!-- info meddage -->
+        <div class="message-box message-box-info animated fadeIn" id="message-box-info">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title">
+                        <span class="fa fa-info"></span>
+                        Informacion</div>
+                    <div class="mb-content">
+                        <p>¿Estas seguro de continuar?</p>
+                    </div>
+                    <div class="mb-footer">
+                        <%= f.submit class:"btn btn-default btn-lg pull-right "%>
+                        <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end info message -->
 <% end %>

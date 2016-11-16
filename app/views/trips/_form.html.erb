@@ -1,41 +1,197 @@
 <%= form_for(@trip) do |f| %>
-  <% if @trip.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
+<% if @trip.errors.any? %>
+<div class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>!Error!</strong>
+    No se pudo guardar en la base de datos.
+</div>
+<% @trip.errors.full_messages.each do |message| %>
+<div class="alert alert-warning" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>¡Advertencia!</strong>
+    <%= message %>
+</div>
 
-      <ul>
-      <% @trip.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<% end %>
+
+<% end %>
+<!-- end error message -->
+
+<!-- form format body -->
+<div class="wizard show-submit">
+    <ul>
+        <li>
+            <a href="#step-1">
+                <span class="stepNumber">1</span>
+                <span class="stepDesc">Paso 1<br/>
+                    <small>Paso 1 Costos</small>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#step-2">
+                <span class="stepNumber">2</span>
+                <span class="stepDesc">Paso 2<br/>
+                    <small>Paso 2 itinerario</small>
+                </span>
+            </a>
+        </li>
+    </ul>
+    <div id="step-1">
+        <h4>Paso 1: Costos</h4>
+        <%= f.fields_for :costs do |h| %>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <%= h.label :alimentacion, class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= h.text_field :alimentacion, class:"form-control"%>
+                        </div>
+                        <span class="help-block">Dinero asignado para alimentacion</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= h.label :combustible, class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= h.text_field :combustible, class:"form-control"%>
+                        </div>
+                        <span class="help-block">Dinero asignado para combustible</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <%= h.label :personal, class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= h.text_field :personal, class:"form-control"%>
+                        </div>
+                        <span class="help-block">Dinero asignado para el personal</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= h.label :emergencia, class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= h.text_field :emergencia, class:"form-control"%>
+                        </div>
+                        <span class="help-block">Dinero asignado para casos de emergencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  <% end %>
+    <% end %>
+    <div id="step-2">
+        <h4>Paso 2: itinerario</h4>
+        <div class="row">
+            <div class="col-md-6">
 
-  <div class="field">
-    <%= f.label :salida %><br>
-    <%= f.date_select :salida %>
-  </div>
-  <div class="field">
-    <%= f.label :real %><br>
-    <%= f.date_select :real %>
-  </div>
-  <div class="field">
-    <%= f.label :estimada %><br>
-    <%= f.date_select :estimada %>
-  </div>
-  <div class="field">
-    <%= f.label :motivo %><br>
-    <%= f.text_field :motivo %>
-  </div>
-  <div class="field">
-    <%= f.label :ship_id %><br>
-    <%= f.text_field :ship_id %>
-  </div>
-  <div class="field">
-    <%= f.label :purchase_id %><br>
-    <%= f.text_field :purchase_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+                <div class="form-group">
+                    <%= f.label "Fecha salida", class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= f.text_field :salida, class:"form-control datepicker"%>
+                        </div>
+                        <span class="help-block">Fecha estimada del arribo de la embarcacion</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label :motivo, class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= f.text_field :motivo, class:"form-control"%>
+                        </div>
+                        <span class="help-block">Motivo del viaje</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label "Compra registro", class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= grouped_collection_select :trip, :purchase_id, Provider.order(:nombre), :purchases, :nombre, :id, :factura, {prompt: true}, {class: "form-control select", "data-live-search" => "true"}  %>
+                        </div>
+                        <span class="help-block">Registro de compra realizado</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <%= f.label "Fecha estimada", class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= f.text_field :estimada, class:"form-control datepicker"%>
+                        </div>
+                        <span class="help-block">Fecha en que parte la embarcacion del puerto</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label "Embarcacion", class:"col-md-3 control-label"%>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-pencil"></span>
+                            </span>
+                            <%= collection_select :trip, :ship_id, Ship.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+                        </div>
+                        <span class="help-block">Embarcacion asignada a este itinerario</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- info meddage -->
+<div class="message-box message-box-info animated fadeIn" id="message-box-info">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title">
+                <span class="fa fa-info"></span>
+                Informacion</div>
+            <div class="mb-content">
+                <p>¿Estas seguro de continuar?</p>
+            </div>
+            <div class="mb-footer">
+                <%= f.submit class:"btn btn-default btn-lg pull-right "%>
+                <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end info message -->
 <% end %>
