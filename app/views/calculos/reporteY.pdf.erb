@@ -1,6 +1,6 @@
 <%= javascript_include_tag "https://www.google.com/jsapi" %>
 <%= wicked_pdf_javascript_include_tag "chartkick" %>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
 <style type="text/css">
           table a:link {
@@ -131,7 +131,7 @@ table tr:hover td {
                 <div class="table-responsive">
                     <h3>Resumen</h3>
                     
-                    <table class="table">
+                    <table class="table" class="col-md-10">
                         <thead>
                           <th align="center" >Producto</th>
                           <th align="center" >Valor invertido Total</th>
@@ -232,7 +232,7 @@ table tr:hover td {
                 </div>
                 <div class="row">
             <div class="col-md-4">
-              <h2 align="center">Gráfico de Producto mas comprado (torta):</h2><br />
+              <h2 align="center"> Producto mas comprado </h2><br />
               <% if(@entro_md1 == true) %>
                 
                 <%= pie_chart(@model1) %>
@@ -242,7 +242,7 @@ table tr:hover td {
 
             </div>
             <div class="col-md-4">
-              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
+              <h2 align="center"> Mes con mas ganancia (Barras):</h2><br />
               <% if(@entro_md2 == true) %>
                 <%= column_chart(@model2) %>
               <% else %>
@@ -250,10 +250,7 @@ table tr:hover td {
                 <%= pie_chart @xd2 %>
               <% end %>
             </div>
-            <div class="col-md-4">
-              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
-              <!--<%= column_chart @model3 %>-->
-            </div>
+            
             </div>
 
                 </div>

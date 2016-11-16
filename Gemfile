@@ -6,7 +6,7 @@ gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use CoffeeScript for .coffee assets and views
-# gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 #devise for rails 4
@@ -28,6 +28,8 @@ gem 'rails_12factor', group: :production
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+#gmaps4rails app to generate google maps script
+gem 'gmaps4rails'
 #gems to generates pdf reports
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

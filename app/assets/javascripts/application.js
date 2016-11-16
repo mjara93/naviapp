@@ -26,5 +26,6 @@
 //= require chartkick
 //= require ./smartwizard/jquery.smartWizard-2.0.min
 //= require underscore
+//= require gmaps/google
 //= require cocoon
 //= require jquery-ui/effect-highlight

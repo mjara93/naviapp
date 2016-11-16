@@ -28,6 +28,8 @@ end
   devise_for :users
   resources :main
   resources :calculos
+  resources :maps
+  resources :settings
 
   get "reporte" => "calculos#index"
   get "reporte/mensual" => "calculos#ejemplo"

@@ -234,11 +234,11 @@ class CalculosController < ApplicationController
       @model2 = Array.new()
       count_ads3 = 0
       @model21.each do |model21|
-        @model2[count_ads3] [model21.to_char_fecha_mon_yy, model21.sum_details_cantidad_all_details_precio.to_i]
+        @model2[count_ads3] = [model21.first, model21.second.to_i]
         count_ads3 = count_ads3 + 1
       end
       @model22.each do |model22|
-        @model2[count_ads3] [model22.to_char_fecha_mon_yy, model22.sum_details_cantidad_all_details_precio.to_i]
+        @model2[count_ads3] = [model22.first, model22.second.to_i]
         count_ads3 = count_ads3 + 1
       end
       #@model2 = @model21
@@ -507,11 +507,11 @@ class CalculosController < ApplicationController
       @model2 = Array.new()
       count_ads3 = 0
       @model21.each do |model21|
-        @model2[count_ads3] [model21.to_char_fecha_mon_yy, model21.sum_details_cantidad_all_details_precio.to_i]
+        @model2[count_ads3] = [model21.first, model21.second.to_i]
         count_ads3 = count_ads3 + 1
       end
       @model22.each do |model22|
-        @model2[count_ads3] [model22.to_char_fecha_mon_yy, model22.sum_details_cantidad_all_details_precio.to_i]
+        @model2[count_ads3] = [model22.first, model22.second.to_i]
         count_ads3 = count_ads3 + 1
       end
       #@model2 = @model21
