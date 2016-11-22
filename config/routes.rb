@@ -30,7 +30,9 @@ end
   resources :calculos
   resources :maps
   resources :settings
-
+  get "location" => "api/locations#upload"
+  get "api/setReal" => "api/locations#update_real"
+  get "api/getInformacion" => "api/locations#informacion"
   get "reporte" => "calculos#index"
   get "reporte/mensual" => "calculos#ejemplo"
   get "reporte/pdf" => "calculos#pdf"
