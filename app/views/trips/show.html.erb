@@ -114,8 +114,12 @@
                 </p>
 
                 <p>
-                    <strong>Proveedor:</strong>
-                    <%= compra.provider.nombre %>
+                  <strong>Proveedor:</strong>
+                  <% if compra.provider != nil %>
+                  <%= compra.provider.nombre %>
+                  <% else %>
+                  Eliminado
+                  <% end %>
                 </p>
 
                 <% end %>
