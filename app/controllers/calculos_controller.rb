@@ -2,12 +2,12 @@ include ActionView::Helpers::NumberHelper
 include ActionView::Helpers::AssetTagHelper
 class CalculosController < ApplicationController
   respond_to :docx
-  skip_before_filter :verify_authenticity_token 
+  skip_before_filter :verify_authenticity_token
 
   # GET /boats
   # GET /boats.json
-  def index    
-  
+  def index
+
   end
   def ejemplo
     @fecha = params[:field1].to_s
@@ -19,7 +19,7 @@ class CalculosController < ApplicationController
     @mes_salida = @meses_agno[(@mes-1)]
     @model = Trip.joins("join costs ON costs.trip_id = trips.id join purchases on purchases.id = trips.purchase_id join providers on providers.id = purchases.provider_id join ships on ships.id = trips.ship_id join summaries on summaries.purchase_id = purchases.id join products on products.id = summaries.product_id").select("products.nombre as nombre_producto, providers.nombre as nombre_proveedor, trips.salida as fechasalida, costs.alimentacion as alimentacion, costs.combustible as combustible, costs.personal as personal, costs.emergencia as emergencia, ships.nombre as nombre_embarcacion, summaries.cantidad as cantidad, summaries.precio as precio, summaries.cantidad as cantidad")
     @boats = @model.where("extract(year from salida) = ? and extract(month from salida) = ?", @agno, @mes_antes)
-    @model_ventas = Sale.joins("join details on details.sale_id = sales.id join products on products.id = details.product_id join clients on clients.id = sales.client_id").select("*")
+    @model_ventas = Sale.joins("join details on details.sale_id = sales.id join products on products.id = details.product_id join clients on clients.id = sales.client_id").select("products.nombre as nombre, clients.nombre as cliente_nombre, sales.fecha as fecha, details.cantidad as cantidad, details.precio as valor_venta")
     @ventas = @model_ventas.where("extract(year from fecha) = ? and extract(month from fecha) = ?", @agno, @mes_antes)
   end
   def reporteY
@@ -39,17 +39,17 @@ class CalculosController < ApplicationController
     @agno_fin = @fecha_split_fin.second.to_i.to_s
     @agno_f = @fecha_split_fin.second.to_i
     if (@agno_inicio > @agno_fin)
-       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
       #redirect_to(show_path, {:flash => { :error => "Insufficient rights!" }})
     else
       if(@agno_inicio == @agno_fin)
-        if(@mes_inicio > @mes_fin)          
-          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+        if(@mes_inicio > @mes_fin)
+          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
         end
       end
       aux = @agno_f - @agno_i
       if(aux > 1)
-        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años." 
+        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años."
       end
     end
     #Consulta BD para calculo por productos entre fechas seleccionadas
@@ -212,7 +212,7 @@ class CalculosController < ApplicationController
           @model1[aux_da1] = [model112.first.to_s, model112.second.to_i]
           aux_da1 = aux_da1 + 1
         end
-        entro_ads1 = true      
+        entro_ads1 = true
       end
       aux_md1 = 0
       @entro_md1 = false
@@ -312,17 +312,17 @@ class CalculosController < ApplicationController
     @agno_fin = @fecha_split_fin.second.to_i.to_s
     @agno_f = @fecha_split_fin.second.to_i
     if (@agno_inicio > @agno_fin)
-       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
       #redirect_to(show_path, {:flash => { :error => "Insufficient rights!" }})
     else
       if(@agno_inicio == @agno_fin)
-        if(@mes_inicio > @mes_fin)          
-          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+        if(@mes_inicio > @mes_fin)
+          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
         end
       end
       aux = @agno_f - @agno_i
       if(aux > 1)
-        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años." 
+        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años."
       end
     end
     #Consulta BD para calculo por productos entre fechas seleccionadas
@@ -485,7 +485,7 @@ class CalculosController < ApplicationController
           @model1[aux_da1] = [model112.first.to_s, model112.second.to_i]
           aux_da1 = aux_da1 + 1
         end
-        entro_ads1 = true      
+        entro_ads1 = true
       end
       aux_md1 = 0
       @entro_md1 = false
@@ -572,7 +572,7 @@ class CalculosController < ApplicationController
         render pdf: "file_name_of_your_choice",
                template: "calculos/reporteY.pdf.erb",
                encoding: 'UTF-8',
-               :javascript_delay=>5000               
+               :javascript_delay=>5000
       end
     end
   end
@@ -586,281 +586,19 @@ class CalculosController < ApplicationController
     @mes_salida = @meses_agno[(@mes-1)]
     @model = Trip.joins("join costs ON costs.trip_id = trips.id join purchases on purchases.id = trips.purchase_id join providers on providers.id = purchases.provider_id join ships on ships.id = trips.ship_id join summaries on summaries.purchase_id = purchases.id join products on products.id = summaries.product_id").select("products.nombre as nombre_producto, providers.nombre as nombre_proveedor, trips.salida as fechasalida, costs.alimentacion as alimentacion, costs.combustible as combustible, costs.personal as personal, costs.emergencia as emergencia, ships.nombre as nombre_embarcacion, summaries.cantidad as cantidad, summaries.precio as precio, summaries.cantidad as cantidad")
     @boats = @model.where("extract(year from salida) = ? and extract(month from salida) = ?", @agno, @mes_antes)
-    @model_ventas = Sale.joins("join details on details.sale_id = sales.id join products on products.id = details.product_id join clients on clients.id = sales.client_id").select("*")
+    @model_ventas = Sale.joins("join details on details.sale_id = sales.id join products on products.id = details.product_id join clients on clients.id = sales.client_id").select("products.nombre as nombre, clients.nombre as cliente_nombre, sales.fecha as fecha, details.cantidad as cantidad, details.precio as valor_venta")
     @ventas = @model_ventas.where("extract(year from fecha) = ? and extract(month from fecha) = ?", @agno, @mes_antes)
     respond_to do |format|
       format.pdf do
         render pdf: "file_name_of_your_choice",
                template: "calculos/ejemplo.pdf.erb",
-               encoding: 'UTF-8'              
+               encoding: 'UTF-8'
       end
     end
   end
-  def pdf_agno
-    @fecha = params[:field1].to_s
-    
-
-    @model = Itinerario.joins("join costos ON costos.itinerario_id = itinerarios.id join compras on compras.id = itinerarios.compra_id join proveedores on proveedores.id = compras.proveedor_id join embarcaciones on embarcaciones.id = itinerarios.embarcacion_id join productos on compras.producto_id = productos.id").select("itinerarios.fechasalida as fecha_salida, productos.nombre as nombre, proveedores.nombre as nombre_proveedor, proveedores.apaterno as apellido_paterno, proveedores.amaterno as apellido_materno, compras.cantidad as cantidad, compras.precio as valor_invertido, fechasalida, embarcacion_id,  costos.alimentacion, costos.combustible, costos.personal, costos.emergencia, embarcaciones.nombre as nombre_embarcacion")
-    @boats = @model.where("extract(year from fechasalida) = ?", @fecha)
-
-    @model_ventas = Venta.joins("join productos on productos.id = ventas.producto_id join clientes on clientes.id = ventas.cliente_id").select("ventas.fecha as fecha, productos.nombre as nombre, clientes.empresa as cliente_nombre, ventas.valor as valor_venta, ventas.cantidad as cantidad")
-    @ventas = @model_ventas.where("extract(year from fecha) = ?", @fecha)
-    
-    url = ActionController::Base.helpers.asset_path('image2.png')
-    ola = '
-      <html>
-        <head>
-          <title></title>
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
-        </head>
-        <style type="text/css">
-          th, td {
-            padding: 15px;
-              text-align: center;
-              border-bottom: 1px solid #ddd;
-          } 
-        </style>
-        <body>
-          <img src="http://i65.tinypic.com/14kh8a8.png" >
-          <h2><strong>Reporte del año '+@fecha+'</strong></h2>
-
-          <h2>Costos de Inversión</h2>
-          <table>
-            <thead>
-                  <th>Nombre Producto</th>
-                  <th>Proveedor</th>
-                  <th>Fecha</th>
-                  <th>Cantidad</th>
-                  <th>Valor invertido</th>
-                  <th>Nombre de embarcación</th>
-                  <th>Costos de Transporte</th>
-                </thead>
-                <tbody>'
-          aux_valor_invertido = 0
-          aux_costos_x = 0
-          salida = '';
-          @boats.each do |boat|
-            nombre_proveedor = boat.nombre_proveedor + " " + boat.apellido_paterno
-            aux_valor_invertido = (aux_valor_invertido + boat.valor_invertido)
-            costos_x = boat.alimentacion + boat.combustible + boat.personal + boat.emergencia
-            aux_costos_x = (aux_costos_x + costos_x)
-            num1 = number_with_delimiter(boat.valor_invertido, delimiter: ".")
-            num2 = number_with_delimiter(costos_x, delimiter: ".")
-            salida = salida + '<tr><td>'+boat.nombre+'</td><td>'+nombre_proveedor+'</td><td>'+boat.fecha_salida.to_s+'</td><td>'+boat.cantidad.to_s+' Kg</td><td>$'+num1.to_s+'</td><td>'+boat.nombre_embarcacion+'</td><td>$'+num2.to_s+'</td></tr>'
-          end
-          num3 = number_with_delimiter(aux_valor_invertido, delimiter: ".")
-          num4 = number_with_delimiter(aux_costos_x, delimiter: ".")
-          salida = salida + '<tr><td>TOTAL</td><td></td><td></td><td></td><td>$'+num3.to_s+'</td><td></td><td>$'+num4.to_s+'</td></tr>'
-          ola = ola + salida   
-          ola = ola +      '</tbody>
-          </table>
-          </br>
-          <h2>Ganancia de Venta de Productos</h2>
-          <table>
-            <thead>
-              <th>Nombre Producto</th>
-              <th>Cliente</th>
-              <th>Fecha</th>
-              <th>Valor Venta</th>
-              <th>Cantidad</th>
-              <th>Venta Total</th>
-            </thead>
-            <tbody>'
-          aux_total = 0
-          salida = '';
-          @ventas.each do |venta|
-            num1 = number_with_delimiter(venta.valor_venta, delimiter: ".")
-            total = venta.valor_venta * venta.cantidad
-            aux_total = aux_total + total
-            num2 = number_with_delimiter(total, delimiter: ".")
-            salida = salida + '<tr><td>'+venta.nombre+'</td><td>'+venta.cliente_nombre+'</td><td>'+venta.fecha.to_s+'</td><td>$'+num1.to_s+'</td><td>'+venta.cantidad.to_s+' Kg</td><td>$'+num2.to_s+'</td></tr>'
-          end
-          num3 = number_with_delimiter(aux_total, delimiter: ".")
-          salida = salida + '<tr><td>TOTAL</td><td></td><td></td><td></td><td></td><td>$'+num3.to_s+'</td></tr>'
-          ola = ola + salida
-          num1 = number_with_delimiter(aux_valor_invertido, delimiter: ".")
-          num2 = number_with_delimiter(aux_costos_x, delimiter: ".")
-          num3 = number_with_delimiter(aux_total, delimiter: ".")
-          num4 = number_to_currency(aux_total- (aux_valor_invertido + aux_costos_x), delimiter: ".", precision: 0)
-          num5 = number_with_delimiter((aux_valor_invertido + aux_costos_x), delimiter: ".")
-          ola = ola +  '</tbody>
-          </table>
-          </br>
-          <h3>Resumen</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Costos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Inversión</td>
-                <td>$'+num1.to_s+'</td>
-              </tr>
-              <tr>
-                <td>Transporte</td>
-                <td>$'+num2.to_s+'</td>
-              </tr>
-              <tr>
-                <td>TOTAL</td>
-                <td>$'+num5.to_s+'</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Ganancia</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Venta Productos</td>
-                <td>$'+num3.to_s+'</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Ganancia Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Ganacias - Costos</td>
-                <td>'+num4.to_s+'</td>
-              </tr>
-            </tbody>
-          </table>
-        </body>
-      </html>
-    '
-    nombre = "reporte "+@fecha+".pdf"
-    pdf = WickedPdf.new.pdf_from_string(ola)
-      send_data(pdf, 
-        :filename => nombre, 
-        :disposition => 'attachment') 
-  end
-  def show
-    @boats = Itinerario.joins("INNER JOIN compras ON itinerarios.compra_id = compras.id INNER JOIN productos ON compras.producto_id = productos.id INNER JOIN costos ON itinerarios.id = costos.itinerario_id").group("productos.nombre").select("productos.nombre as nombre, SUM(compras.precio) as inversion, SUM(costos.alimentacion + costos.combustible + costos.personal + costos.emergencia) as valor_invertido")
-    @sales = Venta.joins("INNER JOIN productos ON ventas.producto_id = productos.id").group("productos.nombre").select("nombre, sum(valor*cantidad) AS valor")
-    @num = Venta.joins("INNER JOIN productos ON ventas.producto_id = productos.id").group(:nombre).count
-      ola = '
-      <style>
-table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    padding: 15px;
-}
-</style>
-      
-      <table class="mdl-data-table mdl-js-data-table page">
-      <thead>
-        <tr>
-          <th>Nombre Producto</th>
-          <th>Costos de Compra</th>
-          <th>Costos de Embarcacion</th>
-          <th>Suma de Costos</th>
-          <th>Total Vendido</th>
-          <th>Ganancia</th>
-
-        </tr>
-      </thead>
-
-    <tbody>'
-      @boats.each do |boat|
-        ola = ola + '<tr>
-          <td class="mdl-data-table__cell--non-numeric">'+boat.nombre+'</td>
-          <td class="mdl-data-table__cell--numeric">'+boat.inversion.to_s+'</td>
-          <td class="mdl-data-table__cell--numeric">'+boat.valor_invertido.to_s+'</td>
-          <td class="mdl-data-table__cell--numeric">'+(boat.inversion+boat.valor_invertido).to_s+'</td>'
-          @sales.each do |sales|
-            if sales.nombre == boat.nombre
-              ola = ola + '<td class="mdl-data-table__cell--numeric">'+sales.valor.to_s+'</td>
-              <td class="mdl-data-table__cell--numeric">'+((sales.valor) - (boat.inversion+boat.valor_invertido)).to_s+'</td>'
-            
-            end
-
-          end
-          if(@num == {})
-            ola = ola+ '<td class="mdl-data-table__cell--numeric">0</td>
-            <td class="mdl-data-table__cell--numeric">0</td>'
-          end
-          
-        ola = ola + '</tr>'
-      end
-    ola = ola +'</tbody>
-    </table>'
-
-      pdf = WickedPdf.new.pdf_from_string(ola)
-      send_data(pdf, 
-        :filename => "Calculo.pdf", 
-        :disposition => 'attachment') 
-      
-    
-  end
-  def boats_pdf
-      barcos = Boat.all
-      ola2 = '
-      <style>
-
-        table, td, th {    
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            padding: 15px;
-        }
-        </style>
-        <table class="mdl-data-table mdl-js-data-table page">
-        <thead>
-          <tr>
-            <th class="mdl-data-table__cell--non-numeric">Nombre de embarcación</th>
-            <th>Patente</th>
-            <th>Metros</th>
-          </tr>
-        </thead>
-
-      <tbody>'
-        barcos.each do |boat|
-          ola2 = ola2 + '<tr>
-            <td class="mdl-data-table__cell--non-numeric">'+boat.nombre+'</td>
-            <td class="mdl-data-table__cell--numeric">'+boat.patente+'</td>
-            <td class="mdl-data-table__cell--numeric">'+boat.metros.to_s+'</td>'          
-            
-          ola2 = ola2 + '</tr>'
-          ola2 = ola2 +'</tbody>
-           </table>'
-        end
-        pdf = WickedPdf.new.pdf_from_string(ola2)
-        send_data(pdf, 
-          :filename => "Boats.pdf", 
-          :disposition => 'attachment')
-  end
-
-  # GET /boats/1
-  # GET /boats/1.json
-  
-
   private
     # Use callbacks to share common setup or constraints between actions.
-    
+
     def calculo_params
       params.require(:calculo).permit(:nombre, :inversion, :valor_invertido, :valor)
     end
