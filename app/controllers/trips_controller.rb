@@ -10,9 +10,9 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
-    get_id = params[:id]
+    @get_id = params[:id]
     @compra = Purchase.where(id: @trip.purchase)
-    datos = Location.where("locations.id = "+get_id)
+    datos = Location.where("locations.id = "+@get_id)
     @hash = Gmaps4rails.build_markers(datos) do |datos, marker|
       marker.lat datos.latitud
       marker.lng datos.longitud
