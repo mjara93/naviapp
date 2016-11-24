@@ -13,13 +13,13 @@ class TripsController < ApplicationController
     get_id = params[:id]
     @compra = Purchase.where(id: @trip.purchase)
     datos = Location.where("locations.id = "+get_id)
-    @salida = ""
-    datos.each do |datos|
-      longitud = datos.longitud
-      latitud = datos.latitud
-      hora = datos.hora
-      @salida = @salida+'{"lat": '+latitud+', "lng": '+longitud+', "infowindow": "'+hora+'"},'      
-    end
+    @salida = '{"lat": -40.580605913913, "lng": -73.1111920951491, "infowindow": "2016-11-22T10:48:06.000Z"}'
+    #datos.each do |datos|
+    #  longitud = datos.longitud
+    #  latitud = datos.latitud
+    #  hora = datos.hora
+    #  @salida = @salida+'{"lat": '+latitud+', "lng": '+longitud+', "infowindow": "'+hora+'"},'      
+    #end
   end
 
   # GET /trips/new
