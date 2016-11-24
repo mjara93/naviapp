@@ -10,7 +10,16 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
+    get_id = params[:id]
     @compra = Purchase.where(id: @trip.purchase)
+    datos = Location.where("locations.id = "+get_id)
+    @salida = ""
+    @datos.each do |datos|
+      longitud = datos.longitud
+      latitud = datos.latitud
+      hora = datos.hora
+      @salida = @salida+'{"lat": '+latitud+', "lng": '+longitud+', "infowindow": "'+hora+'"},'      
+    end
   end
 
   # GET /trips/new
