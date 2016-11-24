@@ -14,7 +14,7 @@ class TripsController < ApplicationController
     @compra = Purchase.where(id: @trip.purchase)
     datos = Location.where("locations.id = "+get_id)
     @salida = ""
-    @datos.each do |datos|
+    datos.each do |datos|
       longitud = datos.longitud
       latitud = datos.latitud
       hora = datos.hora
