@@ -2,12 +2,12 @@ include ActionView::Helpers::NumberHelper
 include ActionView::Helpers::AssetTagHelper
 class CalculosController < ApplicationController
   respond_to :docx
-  skip_before_filter :verify_authenticity_token 
+  skip_before_filter :verify_authenticity_token
 
   # GET /boats
   # GET /boats.json
-  def index    
-  
+  def index
+
   end
   def ejemplo
     @fecha = params[:field1].to_s
@@ -39,17 +39,17 @@ class CalculosController < ApplicationController
     @agno_fin = @fecha_split_fin.second.to_i.to_s
     @agno_f = @fecha_split_fin.second.to_i
     if (@agno_inicio > @agno_fin)
-       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
       #redirect_to(show_path, {:flash => { :error => "Insufficient rights!" }})
     else
       if(@agno_inicio == @agno_fin)
-        if(@mes_inicio > @mes_fin)          
-          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+        if(@mes_inicio > @mes_fin)
+          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
         end
       end
       aux = @agno_f - @agno_i
       if(aux > 1)
-        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años." 
+        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años."
       end
     end
     #Consulta BD para calculo por productos entre fechas seleccionadas
@@ -212,7 +212,7 @@ class CalculosController < ApplicationController
           @model1[aux_da1] = [model112.first.to_s, model112.second.to_i]
           aux_da1 = aux_da1 + 1
         end
-        entro_ads1 = true      
+        entro_ads1 = true
       end
       aux_md1 = 0
       @entro_md1 = false
@@ -312,17 +312,17 @@ class CalculosController < ApplicationController
     @agno_fin = @fecha_split_fin.second.to_i.to_s
     @agno_f = @fecha_split_fin.second.to_i
     if (@agno_inicio > @agno_fin)
-       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+       redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
       #redirect_to(show_path, {:flash => { :error => "Insufficient rights!" }})
     else
       if(@agno_inicio == @agno_fin)
-        if(@mes_inicio > @mes_fin)          
-          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida." 
+        if(@mes_inicio > @mes_fin)
+          redirect_to :action => "index", :notice => "¡Error! La selección de rango de fechas no es válida."
         end
       end
       aux = @agno_f - @agno_i
       if(aux > 1)
-        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años." 
+        redirect_to :action => "index", :notice => "¡Error! La selección de rango debe ser máximo hasta 2 años."
       end
     end
     #Consulta BD para calculo por productos entre fechas seleccionadas
@@ -485,7 +485,7 @@ class CalculosController < ApplicationController
           @model1[aux_da1] = [model112.first.to_s, model112.second.to_i]
           aux_da1 = aux_da1 + 1
         end
-        entro_ads1 = true      
+        entro_ads1 = true
       end
       aux_md1 = 0
       @entro_md1 = false
@@ -572,7 +572,7 @@ class CalculosController < ApplicationController
         render pdf: "file_name_of_your_choice",
                template: "calculos/reporteY.pdf.erb",
                encoding: 'UTF-8',
-               :javascript_delay=>5000               
+               :javascript_delay=>5000
       end
     end
   end
@@ -592,13 +592,13 @@ class CalculosController < ApplicationController
       format.pdf do
         render pdf: "file_name_of_your_choice",
                template: "calculos/ejemplo.pdf.erb",
-               encoding: 'UTF-8'              
+               encoding: 'UTF-8'
       end
     end
   end
   private
     # Use callbacks to share common setup or constraints between actions.
-    
+
     def calculo_params
       params.require(:calculo).permit(:nombre, :inversion, :valor_invertido, :valor)
     end
