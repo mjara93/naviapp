@@ -114,12 +114,8 @@
                 </p>
 
                 <p>
-                  <strong>Proveedor:</strong>
-                  <% if compra.provider != nil %>
-                  <%= compra.provider.nombre %>
-                  <% else %>
-                  Eliminado
-                  <% end %>
+                    <strong>Proveedor:</strong>
+                    <%= compra.provider.nombre %>
                 </p>
 
                 <% end %>
@@ -145,3 +141,9 @@
         </div>
     </div>
 </div>
+<% title("Home Page") %>
+<h1>Google Maps Tut</h1>
+<div id="map-container">
+  <div id="map-canvas"></div>
+</div>
+<% end %>
