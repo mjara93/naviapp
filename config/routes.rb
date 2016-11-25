@@ -35,7 +35,7 @@ end
   get "api/getInformacion" => "api/locations#informacion"
   get "reporte" => "calculos#index"
   get "reporte/mensual" => "calculos#ejemplo"
-  get "reporte/pdf" => "calculos#pdf"
+  get "reporte/pdf" => "calculos#ejemplo_pdf"
   get "calculos/show"
   get "reporte/anual" => "calculos#reporteY"
   get "reporte/pdf_anual" => "calculos#reporteY_pdf"

@@ -576,8 +576,8 @@ class CalculosController < ApplicationController
       end
     end
   end
-  def pdf
-     @fecha = params[:field1].to_s
+  def ejemplo_pdf
+    @fecha = params[:field1].to_s
     @fecha_split = @fecha.split('-')
     @mes_antes = @fecha_split.first
     @mes = @fecha_split.first.to_i
@@ -592,7 +592,8 @@ class CalculosController < ApplicationController
       format.pdf do
         render pdf: "file_name_of_your_choice",
                template: "calculos/ejemplo.pdf.erb",
-               encoding: 'UTF-8'
+               encoding: 'UTF-8',
+               :javascript_delay=>5000
       end
     end
   end
