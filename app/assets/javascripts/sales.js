@@ -2,9 +2,12 @@
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
 
-    $(".grupo").keyup(function()
+    $("#cant2").keyup(function()
 
     {
+      alert("prueba");
+        var cant= $('#cant2').val();
+        window.alert(cant);
         var cantidad=$(this).find("input[id=sale_details_attributes_new_details_cantidad]").val();
         var precio=$(this).find("input[id=sale_details_attributes_new_details_precio]").val();
         $(this).find("input[id=sale_details_attributes_new_details_subtotal]").html(parseInt(precio)*parseInt(cantidad));
