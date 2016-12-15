@@ -9,7 +9,7 @@ validates_presence_of :salida, :estimada, :motivo, :ship_id, :purchase_id, messa
 validates_uniqueness_of :purchase_id, message: "esta en uso"
 
   validates_each :salida, :estimada do |model, attr, value|
-    if value.to_datetime < Date.current.to_s
+    if value.to_datetime < 1.day.ago.to_s
       model.errors.add(attr, "la fecha #{value} no puede ser menor a la actual")
     end
   end
