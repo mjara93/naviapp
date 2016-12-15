@@ -2,28 +2,46 @@
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
 
-    $("#cant2").keyup(function()
-
-    {
-      alert("prueba");
-        var cant= $('#cant2').val();
-        window.alert(cant);
-        var cantidad=$(this).find("input[id=sale_details_attributes_new_details_cantidad]").val();
-        var precio=$(this).find("input[id=sale_details_attributes_new_details_precio]").val();
-        $(this).find("input[id=sale_details_attributes_new_details_subtotal]").html(parseInt(precio)*parseInt(cantidad));
-
-        // calculamos el total de todos los grupos
-
-        var total=0;
-
-        $(".grupo .total").each(function(){
-
-            total=total+parseInt($(this).html());
-
-        })
-
-        $(".total .total").html(total);
-
+    $(document).on( "focusout", ".cantidad", function() {
+        var cantidad = parseFloat($(this).val());
+        var abuelo = $(this).parent().parent();
+        var precio = abuelo.children().children(".precio");
+        var valor = precio.val();
+        if(valor!="" && valor != null && !isNaN(valor)){
+            var valorSubtotal = parseInt(valor)*cantidad;
+            var subtotal = abuelo.children().children(".subtotal");
+            subtotal.val(valorSubtotal);
+            calcularTotal();
+        }
     });
+
+    $(document).on( "focusout", ".precio", function() {
+        var precio = parseInt($(this).val());
+        var abuelo = $(this).parent().parent();
+        var cantidad = abuelo.children().children(".cantidad");
+        var valor = cantidad.val();
+        if(valor!="" && valor != null && !isNaN(valor)){
+            var valorSubtotal = parseFloat(valor)*precio;
+            var subtotal = abuelo.children().children(".subtotal");
+            subtotal.val(valorSubtotal);
+            calcularTotal();
+        }
+    });
+
+
+    $('#details').on('cocoon:after-remove', function(e, insertedItem) {
+       calcularTotal();
+    });
+
+    function calcularTotal(){
+      var total = 0;
+      $(".subtotal").each(function(e){
+        if (!isNaN($(this).val())) {
+          var valorSubtotal = parseInt($(this).val());
+          total+= valorSubtotal;
+        }
+      });
+      $('.total').val(total);
+    }
 
 });

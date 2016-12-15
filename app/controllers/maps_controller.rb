@@ -1,6 +1,10 @@
 class MapsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-        @boat = Location.all
+        @viaje = Trip.where(real: nil)
+        @boat = Location.where(trip_id: @viaje)
+
         @hash = Gmaps4rails.build_markers(@boat) do |boat, marker|
         marker.lat boat.latitud
         marker.lng boat.longitud

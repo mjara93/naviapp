@@ -37,6 +37,7 @@ gem 'wkhtmltopdf-binary'
 gem 'validates_email_format_of'
 #validate rut format
 
+
 # Use Unicorn as the app server
  gem 'unicorn'
 

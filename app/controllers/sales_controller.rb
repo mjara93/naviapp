@@ -27,8 +27,15 @@ class SalesController < ApplicationController
   def create
     @sale = Sale.new(sale_params)
 
+
+    @sale.details.each do |detail|
+      @product = Product.find(detail.product_id)
+      @product.stock = @product.stock - detail.cantidad
+    end
+
     respond_to do |format|
       if @sale.save
+        @product.save
         format.html { redirect_to @sale, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @sale }
       else
