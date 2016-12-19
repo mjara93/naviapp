@@ -2,7 +2,7 @@ class Trip < ActiveRecord::Base
   belongs_to :ship
   belongs_to :purchase
   has_many :costs, dependent: :destroy
-  has_many :locations, dependent: :nullify
+  has_many :locations, dependent: :destroy
   accepts_nested_attributes_for :costs, :allow_destroy => true
 
 validates_presence_of :salida, :estimada, :motivo, :ship_id, :purchase_id, message: "no puede estar en blanco"

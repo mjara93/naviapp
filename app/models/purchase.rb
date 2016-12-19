@@ -1,5 +1,6 @@
 class Purchase < ActiveRecord::Base
   belongs_to :provider
+  has_one :trip, dependent: :destroy
   has_many :summaries, dependent: :destroy
   accepts_nested_attributes_for :summaries, allow_destroy: true,
                               reject_if: ->(attrs) { attrs['product_id'].blank? || attrs['cantidad'].blank? || attrs['precio'].blank? || attrs['subtotal'].blank?}

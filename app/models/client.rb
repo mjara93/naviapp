@@ -1,6 +1,6 @@
 class Client < ActiveRecord::Base
   belongs_to :city
-  has_many :sales, dependent: :nullify
+  has_many :sales, dependent: :destroy
 
   validates_presence_of :rut, :nombre, :telefono, :direccion, :numero, :city_id, :email, message: "no puede estar en blanco"
   validates_uniqueness_of :rut, :email, message: "esta en uso"
