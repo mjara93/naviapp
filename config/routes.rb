@@ -39,6 +39,7 @@ end
   get "calculos/show"
   get "reporte/anual" => "calculos#reporteY"
   get "reporte/pdf_anual" => "calculos#reporteY_pdf"
+  get "route/:id" => "trips#route"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

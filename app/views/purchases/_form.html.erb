@@ -63,7 +63,7 @@
                 <span class="input-group-addon">
                     <span class="fa fa-pencil"></span>
                 </span>
-                <%= f.number_field :total, class:"form-control"%>
+                <%= f.number_field :total, class:"form-control total"%>
             </div>
             <span class="help-block">Total de la compra.</span>
         </div>
@@ -76,14 +76,14 @@
                 <span class="input-group-addon">
                     <span class="fa fa-pencil"></span>
                 </span>
-                <%= collection_select :purchase, :provider_id, Provider.all, :id, :nombre, {prompt: true}, {class: "form-control select"} %>
+                <%= collection_select :purchase, :provider_id, Provider.all, :id, :nombre, {prompt: true}, {class: "form-control select", "data-live-search" => "true"} %>
             </div>
             <span class="help-block">Nombre del proveedor</span>
         </div>
     </div>
 
     </div>
-<div>
+<div id="details">
   <h3>Agregar detalle</h3>
     <%= f.fields_for :summaries do |builder| %>
       <%= render "summary_fields", f: builder  %>

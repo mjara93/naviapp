@@ -12,11 +12,34 @@ class TripsController < ApplicationController
   def show
     @get_id = params[:id]
     @compra = Purchase.where(id: @trip.purchase)
-    datos = Location.where("locations.trip_id = "+@get_id)
-    @hash = Gmaps4rails.build_markers(datos) do |datos, marker|
-      marker.lat datos.latitud
-      marker.lng datos.longitud
-end
+  end
+
+  # GET /recorrido/1
+  # GET /recorrido/1.json
+  def route
+    @get_id = params[:id]
+    @datos = Location.where("locations.trip_id = "+@get_id)
+    @hash = Gmaps4rails.build_markers(@datos) do |datos, marker|
+      hora = datos.hora
+      if(hora != nil)
+        hora = hora.strftime("%Y-%m-%d %H:%M:%S")
+      end
+
+      if datos == @datos.last
+        marker.lat datos.latitud
+        marker.lng datos.longitud
+        marker.infowindow hora
+        marker.picture({
+          "url": "http://www.iconsplace.com/icons/preview/turquoise/sail-boat-48.png",
+          "width":  48,
+          "height": 48
+        })
+      else
+        marker.lat datos.latitud
+        marker.lng datos.longitud
+        marker.infowindow hora
+      end
+    end
   end
 
   # GET /trips/new

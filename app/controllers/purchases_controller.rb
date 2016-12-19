@@ -29,6 +29,11 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
+        @purchase.summaries.each do |detail|
+          @product = Product.find(detail.product_id)
+          @product.stock = @product.stock + detail.cantidad
+          @product.save
+        end
         format.html { redirect_to @purchase, notice: 'Registro creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @purchase }
       else

@@ -88,6 +88,18 @@ class CalculosController < ApplicationController
       else
         @xd2 = {"None" => 100}
       end
+      #Consulta para grafico de producto mas vendido
+      @model3 = Sale.where("(extract(year from fecha) >= ? and extract(month from fecha) >= ?) AND (extract(year from fecha) <= ? and extract(month from fecha) <= ?)", @agno_inicio, @mes_antes_inicio, @agno_fin, @mes_antes_fin).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      aux_md3 = 0
+      @entro_md3 = false
+      @model3.each do |model|
+        aux_md3 = aux_md3 + 1
+      end
+      if(aux_md3 > 0)
+        @entro_md3 = true
+      else
+        @xd3 = {"None" => 100}
+      end
       #@model3 = Venta.group("to_char(fecha,'Mon-YY')").sum("(ventas.cantidad * ventas.valor)")
       @meses_agno = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
       #Calculo de meses seleccionados
@@ -251,6 +263,54 @@ class CalculosController < ApplicationController
         @entro_md2 = true
       else
         @xd2 = {"None" => 100}
+      end
+      #Consulta para grafico de producto mas vendido
+      #C1
+      @model31 = Sale.where("extract(year from fecha) = ? and extract(month from fecha) >= ?", @agno_inicio, @mes_antes_inicio).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      #C2
+      @model32 = Sale.where("extract(year from fecha) = ? and extract(month from fecha) <= ?", @agno_fin, @mes_antes_fin).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      #C1+C2
+      @model3 = Array.new()
+      aux_da2 = 0
+      entro_ads4 = true
+      @model31.each do |model31|
+        @model32.each do |model32|
+          if(model31.first == model32.first)
+            cont = (model31.second + model32.second)
+            #model112.products_nombre = ''
+            @model3[aux_da2] = [model31.first.to_s, cont]
+            aux_da2 = aux_da2 + 1
+            entro_ads4 = false
+          end
+        end
+        if(entro_ads4 == true)
+          @model3[aux_da2] = [model31.first.to_s, model31.second.to_i]
+          aux_da2 = aux_da2 + 1
+        end
+        entro_ads4 = true
+      end
+      entro_ads5 = true
+      @model32.each do |model32|
+        @model31.each do |model31|
+          if(model31.first == model32.first)
+            entro_ads5 = false
+          end
+        end
+        if(entro_ads5 == true)
+          @model3[aux_da2] = [model32.first.to_s, model32.second.to_i]
+          aux_da2 = aux_da2 + 1
+        end
+        entro_ads5 = true      
+      end
+      aux_md3 = 0
+      @entro_md3 = false
+      @model3.each do |model|
+        aux_md3 = aux_md3 + 1
+      end
+      if(aux_md3 > 0)
+        @entro_md3 = true
+      else
+        @xd3 = {"None" => 100}
       end
       #@model3 = Venta.group("to_char(fecha,'Mon-YY')").sum("(ventas.cantidad * ventas.valor)")
       @meses_agno = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
@@ -361,6 +421,18 @@ class CalculosController < ApplicationController
       else
         @xd2 = {"None" => 100}
       end
+      #Consulta para grafico de producto mas vendido
+      @model3 = Sale.where("(extract(year from fecha) >= ? and extract(month from fecha) >= ?) AND (extract(year from fecha) <= ? and extract(month from fecha) <= ?)", @agno_inicio, @mes_antes_inicio, @agno_fin, @mes_antes_fin).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      aux_md3 = 0
+      @entro_md3 = false
+      @model3.each do |model|
+        aux_md3 = aux_md3 + 1
+      end
+      if(aux_md3 > 0)
+        @entro_md3 = true
+      else
+        @xd3 = {"None" => 100}
+      end
       #@model3 = Venta.group("to_char(fecha,'Mon-YY')").sum("(ventas.cantidad * ventas.valor)")
       @meses_agno = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
       #Calculo de meses seleccionados
@@ -524,6 +596,55 @@ class CalculosController < ApplicationController
         @entro_md2 = true
       else
         @xd2 = {"None" => 100}
+      end
+
+      #Consulta para grafico de producto mas vendido
+      #C1
+      @model31 = Sale.where("extract(year from fecha) = ? and extract(month from fecha) >= ?", @agno_inicio, @mes_antes_inicio).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      #C2
+      @model32 = Sale.where("extract(year from fecha) = ? and extract(month from fecha) <= ?", @agno_fin, @mes_antes_fin).joins("join details on details.sale_id = sales.id join products on details.product_id = products.id").group("products.nombre").sum("(details.cantidad * details.precio)")
+      #C1+C2
+      @model3 = Array.new()
+      aux_da2 = 0
+      entro_ads4 = true
+      @model31.each do |model31|
+        @model32.each do |model32|
+          if(model31.first == model32.first)
+            cont = (model31.second + model32.second)
+            #model112.products_nombre = ''
+            @model3[aux_da2] = [model31.first.to_s, cont]
+            aux_da2 = aux_da2 + 1
+            entro_ads4 = false
+          end
+        end
+        if(entro_ads4 == true)
+          @model3[aux_da2] = [model31.first.to_s, model31.second.to_i]
+          aux_da2 = aux_da2 + 1
+        end
+        entro_ads4 = true
+      end
+      entro_ads5 = true
+      @model32.each do |model32|
+        @model31.each do |model31|
+          if(model31.first == model32.first)
+            entro_ads5 = false
+          end
+        end
+        if(entro_ads5 == true)
+          @model3[aux_da2] = [model32.first.to_s, model32.second.to_i]
+          aux_da2 = aux_da2 + 1
+        end
+        entro_ads5 = true      
+      end
+      aux_md3 = 0
+      @entro_md3 = false
+      @model3.each do |model|
+        aux_md3 = aux_md3 + 1
+      end
+      if(aux_md3 > 0)
+        @entro_md3 = true
+      else
+        @xd3 = {"None" => 100}
       end
       #@model3 = Venta.group("to_char(fecha,'Mon-YY')").sum("(ventas.cantidad * ventas.valor)")
       @meses_agno = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']

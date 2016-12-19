@@ -57,7 +57,7 @@
                 <span class="input-group-addon">
                     <span class="fa fa-pencil"></span>
                 </span>
-                <%= collection_select :account, :crew_id, Crew.all, :id, :rut, {prompt: true}, {class: "form-control select"} %>
+                <%= collection_select :account, :crew_id, Crew.all, :id, :rut, {prompt: true}, {class: "form-control select", "data-live-search" => "true"} %>
             </div>
             <span class="help-block">Stock del producto</span>
         </div>

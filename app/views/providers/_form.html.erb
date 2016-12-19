@@ -113,7 +113,7 @@
                         <span class="input-group-addon">
                             <span class="fa fa-pencil"></span>
                         </span>
-                        <%= collection_select :provider, :city_id, City.all, :id, :nombre, {prompt: "selecciona una ciudad"}, {class: "form-control select"} %>
+                        <%= collection_select :provider, :city_id, City.all, :id, :nombre, {prompt: "selecciona una ciudad"}, {class: "form-control select", "data-live-search" => "true"} %>
                     </div>
                     <span class="help-block">Ciudad del proveedor</span>
                 </div>

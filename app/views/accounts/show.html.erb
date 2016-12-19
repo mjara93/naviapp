@@ -31,7 +31,7 @@
             </div>
             <div class="panel-footer">
                 <%= link_to 'Editar', edit_account_path(@account), class:"btn btn-default pull-left" %>
-                <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-danger">Eliminar</button>
+                <button type="button" class="btn btn-primary pull-right mb-control" data-box="#message-box-warning">Eliminar</button>
                 <%= link_to 'Volver', accounts_path, class:"btn btn-default pull-left" %>
             </div>
         </div>
@@ -41,6 +41,22 @@
 <!-- footer -->
 
 <!-- end foooter -->
+<!-- warning -->
+        <div class="message-box message-box-warning animated fadeIn" id="message-box-warning">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-warning"></span> Atención</div>
+                    <div class="mb-content">
+                      <p>¿Está seguro de eliminar el registro?</p>
+                    </div>
+                    <div class="mb-footer">
+                        <button class="btn btn-default btn-lg pull-left mb-control-close">Cerrar</button>
+                        <button class="btn btn-default btn-lg pull-right mb-control mb-control-close" data-box="#message-box-danger">Continuar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- end warning -->
 <!-- danger -->
 <div class="message-box message-box-danger animated fadeIn" id="message-box-danger">
     <div class="mb-container">
@@ -49,7 +65,7 @@
                 <span class="fa fa-times"></span>
                 Peligro</div>
             <div class="mb-content">
-                <p>¿Esta seguro de continuar con la eliminacion del registro?</p>
+                <p>¿Está seguro de continuar con la eliminación del registro? todos los datos serán borrados de forma permanente.</p>
             </div>
             <div class="mb-footer">
                 <%= link_to 'Eliminar', @account, method: :delete, class:"btn btn-default btn-lg pull-right"%>

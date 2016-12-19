@@ -25,7 +25,7 @@ table {
   background:#eaebec;
   margin:20px;
   border:#ccc 1px solid;
-
+  width: 95%;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
   border-radius:3px;
@@ -229,9 +229,10 @@ table tr:hover td {
                 </div>
                 
                 </div>
+                <div class="page-break"></div>
                 <div class="row">
             <div class="col-md-4">
-              <h2 align="center"> Producto mas comprado </h2><br />
+              <h2 align="center"> Producto mas comprado: </h2><br />
               <% if(@entro_md1 == true) %>
                 
                 <%= pie_chart(@model1) %>
@@ -241,7 +242,7 @@ table tr:hover td {
 
             </div>
             <div class="col-md-4">
-              <h2 align="center"> Mes con mas ganancia (Barras):</h2><br />
+              <h2 align="center"> Mes con mas ganancia:</h2><br />
               <% if(@entro_md2 == true) %>
                 <%= column_chart(@model2) %>
               <% else %>
@@ -249,7 +250,14 @@ table tr:hover td {
                 <%= pie_chart @xd2 %>
               <% end %>
             </div>
-            
+            <div class="col-md-4">
+              <h2 align="center">Producto mas vendido:</h2><br />
+              <% if(@entro_md2 == true) %>
+                <%= pie_chart @model3 %>
+              <% else %>              
+                <%= pie_chart @xd3 %>
+              <% end %>  
+            </div>
             </div>
 
                 </div>

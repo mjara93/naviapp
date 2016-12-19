@@ -131,7 +131,7 @@
                 </div>
                 <div class="row">
             <div class="col-md-4">
-              <h2 align="center">Gráfico de Producto mas comprado (torta):</h2><br />
+              <h2 align="center">Producto mas comprado:</h2><br />
               <% if(@entro_md1 == true) %>
                 
                 <%= pie_chart(@model1) %>
@@ -141,7 +141,7 @@
 
             </div>
             <div class="col-md-4">
-              <h2 align="center">Gráfico de Mes con mas ganancia (Barras):</h2><br />
+              <h2 align="center">Mes con mas ganancia:</h2><br />
               <% if(@entro_md2 == true) %>
                 <%= column_chart(@model2) %>
               <% else %>
@@ -149,7 +149,14 @@
                 <%= column_chart @xd2 %>
               <% end %>
             </div>
-            
+            <div class="col-md-4">
+              <h2 align="center">Producto mas vendido:</h2><br />
+              <% if(@entro_md2 == true) %>
+                <%= pie_chart @model3 %>
+              <% else %>              
+                <%= pie_chart @xd3 %>
+              <% end %>  
+            </div>
             </div>
 
                 </div>
