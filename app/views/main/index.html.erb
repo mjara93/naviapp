@@ -1,3 +1,14 @@
+<!-- error message -->
+<% if notice != nil %>
+<div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <%= notice %>
+</div>
+<% end %>
+<!-- end error message -->
 <div class="row">
     <div class="col-md-3">
 
