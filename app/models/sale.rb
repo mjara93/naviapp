@@ -3,7 +3,7 @@ class Sale < ActiveRecord::Base
   has_many :details, dependent: :destroy
   accepts_nested_attributes_for :details, allow_destroy: true,
                               reject_if: ->(attrs) { attrs['product_id'].blank? || attrs['cantidad'].blank? || attrs['precio'].blank? || attrs['subtotal'].blank?}
-                              
+
   validates_presence_of :factura, :fecha, :total, :client_id, message: "no puede estar en blanco"
   validates_uniqueness_of :factura, message: "esta en uso"
 
