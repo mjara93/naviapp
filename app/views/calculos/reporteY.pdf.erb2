@@ -171,14 +171,6 @@ table tr:hover td {
                             </tr>
                              <% end
                           end %>
-                            <tr>
-                              <td align="center" >TOTAL</td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-
-                            </tr>
                         </tbody>
                   </table>
 
