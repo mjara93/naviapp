@@ -3,7 +3,7 @@ class MapsController < ApplicationController
 
   def index
         @viaje = Trip.where(real: nil)
-        @boat = Location.where(trip_id: @viaje)
+        @boat = Location.where(trip_id: @viaje).last(5)
 
         @hash = Gmaps4rails.build_markers(@boat) do |boat, marker|
         marker.lat boat.latitud
