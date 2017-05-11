@@ -1,28 +1,7 @@
-== README
+== NAVIAPP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sistema de administración y seguimiento de embarcaciones vía GPS.
+Desarrollada en Ruby on Rails 4, cuenta con una API para la conexión de una aplicación android para el posicionamiento de embarcaciones vía GPS, la cual obtiene la posición y la envía en formato JSON a la aplicación.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Aplicación alojada en Heroku
+	https://naviera.herokuapp.com
